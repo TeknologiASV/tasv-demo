@@ -82,18 +82,18 @@ else{
         <ul class="nav nav-pills nav-sidebar flex-column" id="sideMenu" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-          <li class="nav-item">
-            <a href="#home" data-file="home.html" class="nav-link link" style="color: black;">
-              <i class="nav-icon fas fa-home"></i>
-              <p>Main Page</p>
-            </a>
-          </li>
-          <li class="nav-item">
+          <li class="nav-item menu-is-opening menu-open">
             <a href="#" class="nav-link" style="color: black;">
               <i class="nav-icon fas fa-store"></i>
               <p>Uniqlo<i class="fas fa-angle-left right"></i></p>
             </a>
-            <ul class="nav nav-treeview">
+            <ul class="nav nav-treeview" style="display: block;">
+              <li class="nav-item">
+                <a href="#home" data-file="home.html" class="nav-link link active" style="color: black;">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Main Page</p>
+                </a>
+              </li>
               <li class="nav-item">
                 <a href="#1utama" data-file="1utama.html" class="nav-link link" style="color: black;">
                   <i class="far fa-circle nav-icon"></i>
@@ -106,6 +106,16 @@ else{
                   <p>Uniqlo DAS</p>
                 </a>
               </li>
+              <?php
+                if($role == 'ADMIN'){
+                  echo '<li class="nav-item">
+                  <a href="#transaction" data-file="transaction.html" class="nav-link link" style="color: black;">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Transaction</p>
+                  </a>
+                </li>';
+                }
+              ?>
             </ul>
           </li>
           <li class="nav-item">
@@ -128,16 +138,52 @@ else{
               </li>
             </ul>
           </li>
-          <?php
-            if($role == 'ADMIN'){
-              echo '<li class="nav-item">
-              <a href="#transaction" data-file="transaction.html" class="nav-link link" style="color: black;">
-                <i class="nav-icon fas fa-file"></i>
-                <p>Transaction</p>
-              </a>
-            </li>';
-            }
-          ?>
+          <li class="nav-item">
+            <a href="#" class="nav-link" style="color: black;">
+              <i class="nav-icon fas fa-crop"></i>
+              <p>Felda<i class="fas fa-angle-left right"></i></p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="#home" data-file="home.html" class="nav-link link" style="color: black;">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Dashboard</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#tracking" data-file="tracking.html" class="nav-link link" style="color: black;">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Tracking</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link" style="color: black;">
+              <i class="nav-icon fas fa-map"></i>
+              <p>IJM<i class="fas fa-angle-left right"></i></p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="#ijm" data-file="ijm.html" class="nav-link link" style="color: black;">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Dashboard</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a href="#fallDetection" data-file="fall.html" class="nav-link link" style="color: black;">
+              <i class="nav-icon fas fa-shoe-prints"></i>
+              <p>Fall Detection</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#vehiclecounting" data-file="vehiclecounting.html" class="nav-link link" style="color: black;">
+              <i class="nav-icon fas fa-car"></i>
+              <p>Vehicle Counting</p>
+            </a>
+          </li>
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link" style="color: black;">
               <i class="nav-icon fas fa-cogs"></i>

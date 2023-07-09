@@ -1,0 +1,457 @@
+<div class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1 class="m-0">IJM</h1>
+      </div><!-- /.col -->
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item">IJM</li>
+          <li class="breadcrumb-item active">Dashboard</li>
+        </ol>
+      </div><!-- /.col -->
+    </div><!-- /.row -->
+  </div><!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+
+<!-- Main content -->
+<div class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card card-primary card-outline card-outline-tabs">
+          <div class="card-header p-0 border-bottom-0">
+            <ul class="nav nav-tabs" id="custom-tabs-four-tab" role="tablist">
+              <li class="nav-item">
+                <a class="nav-link active" id="custom-tabs-four-home-tab" data-toggle="pill" href="#weekly" role="tab" aria-controls="custom-tabs-four-home" aria-selected="true">Monthly</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="custom-tabs-four-profile-tab" data-toggle="pill" href="#daily" role="tab" aria-controls="custom-tabs-four-profile" aria-selected="false">Daily</a>
+              </li>
+            </ul>
+          </div>
+          <div class="card-body">
+            <div class="tab-content" id="custom-tabs-four-tabContent">
+              <div class="tab-pane fade show active" id="weekly" role="tabpanel" aria-labelledby="custom-tabs-four-home-tab">
+                <div class="row">
+                  <div class="col-9">
+                    <div class="form-group">
+                      <label>Date range button:</label>
+
+                      <div class="input-group">
+                        <button type="button" class="btn btn-default float-right" id="daterange-btn">
+                          <i class="far fa-calendar-alt"></i> Date range picker
+                          <i class="fas fa-caret-down"></i>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-3">
+                    <div class="card">
+                      <div class="card-header">
+                        <h3 class="card-title">Total Vehicle</h3>
+                      </div>
+                      <div class="card-body">
+                        <canvas id="totalVehicle" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-9">
+                    <div class="card">
+                      <div class="card-header">
+                        <h3 class="card-title">Total Vehicle Daily Chart</h3>
+                      </div>
+                      <div class="card-body">
+                        <div class="chart">
+                          <canvas id="totalVehicleDaily" style="min-height: 250px; height: 200px; max-height: 300px; max-width: 100%;"></canvas>
+                        </div>              
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="tab-pane fade" id="daily" role="tabpanel" aria-labelledby="custom-tabs-four-profile-tab">
+                <div class="row">
+                  <div class="col-3">
+                    <div class="form-group">
+                      <label>Date:</label>
+                      <div class="input-group">
+                        <input id="reservationdate" type="date" class="form-control">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-3">
+                    <div class="form-group">
+                      <label>Start Time:</label>
+                      <div class="input-group">
+                        <input id="reservationtime" type="time" class="form-control">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-3">
+                    <div class="form-group">
+                      <label>End Time:</label>
+                      <div class="input-group">
+                        <input id="endtime" type="time" class="form-control">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-3">
+                    <label></label>
+                    <button type="button" class="btn btn-block bg-gradient-warning btn" id="filterSearch">
+                      <i class="fas fa-search"></i>
+                      Search
+                    </button>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-12">
+                    <div class="card">
+                      <div class="card-header">
+                        <h3 class="card-title">Total Visitors By Type</h3>
+                      </div>
+                      <div class="card-body">
+                        <div class="chart">
+                          <canvas id="totalVisitorsDaily" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!--div class="col-lg-12">
+      <div class="card">
+        <div class="card-header border-0">
+          <div class="d-flex justify-content-between">
+            <h3 class="card-title">Total Vehicles Daily Chart</h3>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="chart">
+            <canvas id="totalVehicleDailyChart" style="min-height: 250px; height: 200px; max-height: 300px; max-width: 100%;"></canvas>
+          </div>
+        </div>
+      </div>
+    </div-->
+    <!--div class="col-lg-12">
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">Heatmap</h3>
+        </div>
+        <div class="card-body">
+          <div id="heatmapContainerWrapper" style="width:100%; height:100%;">
+            <div id="heatmapContainer" style="width:100%; height:800px;"></div>
+          </div>
+        </div>
+      </div>
+    </div-->
+  </div>
+  <!-- /.container-fluid -->
+</div>
+<!-- /.content -->
+<div class="modal fade" id="editModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="title">-</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-4">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Total Vehicle</h3>
+              </div>
+              <div class="card-body">
+                <canvas id="totalVehicle" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+              </div>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Total Vehicle Daily Chart</h3>
+              </div>
+              <div class="card-body">
+                <div class="chart">
+                  <canvas id="totalVehicleDaily" style="min-height: 250px; height: 200px; max-height: 300px; max-width: 100%;"></canvas>
+                </div>              
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer justify-content-between">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+
+<script>
+$(function () {
+  //Date range as a button
+  $('#daterange-btn').daterangepicker(
+    {
+      ranges   : {
+        'Today'       : [moment(), moment()],
+        'Yesterday'   : [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+        'Last 7 Days' : [moment().subtract(6, 'days'), moment()],
+        'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+        'This Month'  : [moment().startOf('month'), moment().endOf('month')],
+        'Last Month'  : [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+      },
+      startDate: moment().subtract(29, 'days'),
+      endDate  : moment()
+    },
+    function (start, end) {
+      var startFormatted = formatDate(start) + " 00:00:00";
+      var endFormatted = formatDate(end) + " 23:59:59";
+      
+      $.post('php/getijmmonthly.php', {startDate: startFormatted, endDate: endFormatted}, function(data){
+        var obj = JSON.parse(data);
+
+        if(obj.status === 'success'){
+          removeData(passedInGroundPie);
+          removeData(stackChart3);
+          addData(passedInGroundPie, 'Car & Van', obj.type1);
+          addData(passedInGroundPie, 'Small Lorry, 2 Axles', obj.type2);
+          addData(passedInGroundPie, 'Big Lorry, 3 Axles and Above', obj.type3);
+          addData(passedInGroundPie, 'Bus', obj.type4);
+
+          for(var i=0; i<obj.message.length; i++){
+            addStackChartData(stackChart3, obj.message[i].Date, obj.message[i].type1, obj.message[i].type2, obj.message[i].type3, obj.message[i].type4);
+          }
+        }
+        else if(obj.status === 'failed'){
+          toastr["error"](obj.message, "Failed:");
+        }
+        else{
+          toastr["error"]("Something wrong when geting data", "Failed:");
+        }
+      });
+    }
+  );
+
+  var donutChartCanvas2 = $('#totalVehicle').get(0).getContext('2d');
+  var donutData2        = {
+    labels: ['Car & Van', 'Small Lorry, 2 Axles', 'Big Lorry, 3 Axles and Above', 'Bus'],
+    datasets: [
+      {
+        data: [0,0,0,0],
+        backgroundColor : ['#f4a522', '#6092cd', '#61b546', '#aa4498'],
+      }
+    ]
+  }
+  var donutOptions2     = {maintainAspectRatio : false, responsive : true}
+  var passedInGroundPie = new Chart(donutChartCanvas2, {type: 'doughnut', data: donutData2, options: donutOptions2});
+
+
+  // Start: Bar cahrt
+  var stackedBarChartCanvas3 = $('#totalVehicleDaily').get(0).getContext('2d')
+  var stackedBarChartData3 = {
+    labels  : ['1/1', '2/1', '3/1', '4/1', '5/1', '6/1', '7/1'],
+    datasets: [
+      {
+        label               : 'Car & Van',
+        backgroundColor     : 'rgba(244, 165, 34, 0.9)',
+        borderColor         : 'rgba(244, 165, 34, 0.8)',
+        pointRadius          : false,
+        pointColor          : '#f4a522',
+        pointStrokeColor    : 'rgba(244, 165, 34, 1)',
+        pointHighlightFill  : '#fff',
+        pointHighlightStroke: 'rgba(244, 165, 34, 1)',
+        data                : [0, 0, 0, 0, 0, 0, 0]
+      },
+      {
+        label               : 'Small Lorry, 2 Axles',
+        backgroundColor     : 'rgba(96, 146, 205, 1)',
+        borderColor         : 'rgba(96, 146, 205, 1)',
+        pointRadius         : false,
+        pointColor          : 'rgba(96, 146, 205, 1)',
+        pointStrokeColor    : '#6092cd',
+        pointHighlightFill  : '#fff',
+        pointHighlightStroke: 'rgba(96, 146, 205, 1)',
+        data                : [0, 0, 0, 0, 0, 0, 0]
+      },
+      {
+        label               : 'Big Lorry, 3 Axles and Above',
+        backgroundColor     : 'rgba(97, 181, 70, 0.9)',
+        borderColor         : 'rgba(97, 181, 70, 0.8)',
+        pointRadius          : false,
+        pointColor          : '#61b546',
+        pointStrokeColor    : 'rgba(97, 181, 70, 1)',
+        pointHighlightFill  : '#fff',
+        pointHighlightStroke: 'rgba(97, 181, 70, 1)',
+        data                : [0, 0, 0, 0, 0, 0, 0]
+      },
+      {
+        label               : 'Bus',
+        backgroundColor     : 'rgba(170, 68, 152, 1)',
+        borderColor         : 'rgba(170, 68, 152, 1)',
+        pointRadius         : false,
+        pointColor          : 'rgba(170, 68, 152, 1)',
+        pointStrokeColor    : '#aa4498',
+        pointHighlightFill  : '#fff',
+        pointHighlightStroke: 'rgba(170, 68, 152, 1)',
+        data                : [0, 0, 0, 0, 0, 0, 0]
+      }
+    ]
+  };
+
+  var stackedBarChartOptions3 = {
+    responsive              : true,
+    maintainAspectRatio     : false,
+    scales: {xAxes: [{stacked: true,}], yAxes: [{stacked: true}]}
+  }
+
+  var stackChart3 = new Chart(stackedBarChartCanvas3, {
+    type: 'bar',
+    data: stackedBarChartData3,
+    options: stackedBarChartOptions3
+  });
+  //End: BAR CHART
+
+  // Start: LINE CHART 
+  var lineChartCanvas = $('#totalVisitorsDaily').get(0).getContext('2d');
+  var lineChartOptions = {maintainAspectRatio : false, responsive : true, datasetFill: false};
+  var lineChartData = {
+    labels  : ['10.00', '11.00', '12.00', '13.00', '14.00', '15.00', '16.00'],
+    datasets: [
+    {
+        label               : 'Car & Van',
+        backgroundColor     : 'rgba(244, 165, 34, 0.9)',
+        borderColor         : 'rgba(244, 165, 34, 0.8)',
+        pointRadius          : false,
+        pointColor          : '#f4a522',
+        pointStrokeColor    : 'rgba(244, 165, 34, 1)',
+        pointHighlightFill  : '#fff',
+        pointHighlightStroke: 'rgba(244, 165, 34, 1)',
+        fill                : false,
+        data                : [1, 1, 2, 0, 0, 0, 0]
+      },
+      {
+        label               : 'Small Lorry, 2 Axles',
+        backgroundColor     : 'rgba(96, 146, 205, 1)',
+        borderColor         : 'rgba(96, 146, 205, 1)',
+        pointRadius         : false,
+        pointColor          : 'rgba(96, 146, 205, 1)',
+        pointStrokeColor    : '#6092cd',
+        pointHighlightFill  : '#fff',
+        pointHighlightStroke: 'rgba(96, 146, 205, 1)',
+        fill                : false,
+        data                : [0, 0, 0, 0, 0, 0, 0]
+      },
+      {
+        label               : 'Big Lorry, 3 Axles and Above',
+        backgroundColor     : 'rgba(97, 181, 70, 0.9)',
+        borderColor         : 'rgba(97, 181, 70, 0.8)',
+        pointRadius          : false,
+        pointColor          : '#61b546',
+        pointStrokeColor    : 'rgba(97, 181, 70, 1)',
+        pointHighlightFill  : '#fff',
+        pointHighlightStroke: 'rgba(97, 181, 70, 1)',
+        fill                : false,
+        data                : [0, 0, 0, 0, 0, 0, 0]
+      },
+      {
+        label               : 'Bus',
+        backgroundColor     : 'rgba(97, 181, 70, 0.9)',
+        borderColor         : 'rgba(97, 181, 70, 0.8)',
+        pointRadius          : false,
+        pointColor          : '#81b546',
+        pointStrokeColor    : 'rgba(97, 181, 70, 1)',
+        pointHighlightFill  : '#fff',
+        pointHighlightStroke: 'rgba(97, 181, 70, 1)',
+        fill                : false,
+        data                : [0, 0, 0, 0, 0, 0, 0]
+      }
+    ]
+  }; 
+
+  var lineChart = new Chart(lineChartCanvas, {type: 'line', data: lineChartData, options: lineChartOptions});
+
+  $('#reservationdate').val(formatDate(new Date()));
+  $('#reservationtime').val('00:00');
+  $('#endtime').val('23:59');
+
+  $('#filterSearch').on('click', function(){
+    var reservationdate = $('#reservationdate').val() ? $('#reservationdate').val() : formatDate(new Date()),
+        reservationtime = $('#reservationtime').val() ? $('#reservationtime').val() + ':00' : '00:00:00',
+        endtime = $('#endtime').val() ? $('#endtime').val() + ':59' : '23:59:59';
+
+    $.post('php/getdaily.php', {startDate: reservationdate + " " + reservationtime, endDate: reservationdate + " " + endtime}, function(data){
+      var obj = JSON.parse(data);
+
+      if(obj.status === 'success'){
+        removeData(lineChart);
+
+        for(var i=0; i<obj.message.length; i++){
+          addLineChartData(lineChart, obj.message[i].Date, obj.message[i].type1, obj.message[i].type2, obj.message[i].type3, obj.message[i].type4);
+        }
+      }
+      else if(obj.status === 'failed'){
+        toastr["error"](obj.message, "Failed:");
+      }
+      else{
+        toastr["error"]("Something wrong when geting data", "Failed:");
+      }
+    });
+  });
+
+  $.post('php/getijmmonthly.php', {startDate: formatDate(moment().subtract(29, 'days')) + " 00:00:00", endDate: formatDate(moment()) + " 23:59:59"}, function(data){
+    var obj = JSON.parse(data);
+
+    if(obj.status === 'success'){
+      removeData(passedInGroundPie);
+      removeData(stackChart3);
+      addData(passedInGroundPie, 'Car & Van', obj.type1);
+      addData(passedInGroundPie, 'Small Lorry, 2 Axles', obj.type2);
+      addData(passedInGroundPie, 'Big Lorry, 3 Axles and Above', obj.type3);
+      addData(passedInGroundPie, 'Bus', obj.type4);
+
+      for(var i=0; i<obj.message.length; i++){
+        addStackChartData(stackChart3, obj.message[i].Date, obj.message[i].type1, obj.message[i].type2, obj.message[i].type3, obj.message[i].type4);
+      }
+    }
+    else if(obj.status === 'failed'){
+      toastr["error"](obj.message, "Failed:");
+    }
+    else{
+      toastr["error"]("Something wrong when geting data", "Failed:");
+    }
+  });
+
+  $.post('php/getdaily.php', {startDate: $('#reservationdate').val() + " " + $('#reservationtime').val() + ':00', endDate: $('#reservationdate').val() + " " + $('#endtime').val() + ':59'}, function(data){
+    var obj = JSON.parse(data);
+
+    if(obj.status === 'success'){
+      removeData(lineChart);
+
+      for(var i=0; i<obj.message.length; i++){
+        addLineChartData(lineChart, obj.message[i].Date, obj.message[i].type1, obj.message[i].type2, obj.message[i].type3, obj.message[i].type4);
+      }
+    }
+    else if(obj.status === 'failed'){
+      toastr["error"](obj.message, "Failed:");
+    }
+    else{
+      toastr["error"]("Something wrong when geting data", "Failed:");
+    }
+  });
+});
+</script>

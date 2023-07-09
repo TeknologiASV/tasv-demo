@@ -1,0 +1,334 @@
+<div class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1 class="m-0">General</h1>
+      </div><!-- /.col -->
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item">General</li>
+          <li class="breadcrumb-item active" id="bilikNo"></li>
+        </ol>
+      </div><!-- /.col -->
+    </div><!-- /.row -->
+  </div><!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+
+<!-- Main content -->
+<div class="content">
+  <div class="container-fluid">
+    <!--div class="row">
+      <div class="col-lg-12">
+        <div class="card">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-9">
+                <div class="form-group">
+                  <label>Date range button:</label>
+
+                  <div class="input-group">
+                    <button type="button" class="btn btn-default float-right" id="daterange-btn">
+                      <i class="far fa-calendar-alt"></i> Date range picker
+                      <i class="fas fa-caret-down"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div-->
+    <div class="row">
+      <div class="col-6">
+        <div class="info-box">
+          <span class="info-box-icon bg-warning"><i class="far fa-copy"></i></span>
+          <div class="info-box-content">
+            <div class="info-box-content">
+              <span class="info-box-text">Near Fall Count</span>
+              <span class="info-box-number" id="purchaseInfo">No Data</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="info-box">
+          <span class="info-box-icon bg-warning"><i class="far fa-copy"></i></span>
+          <div class="info-box-content">
+            <span class="info-box-text">Fall Count Detected</span>
+            <span class="info-box-number" id="purchaseInfo">No Data</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-6">
+        <div class="info-box">
+          <span class="info-box-icon bg-warning"><i class="far fa-copy"></i></span>
+          <div class="info-box-content">
+            <span class="info-box-text">Average Sleep Time (Hours)</span>
+            <span class="info-box-number" id="purchaseInfo">7.17</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="info-box">
+          <span class="info-box-icon bg-warning"><i class="far fa-copy"></i></span>
+          <div class="info-box-content">
+            <span class="info-box-text">Previous Day Time (Hours)</span>
+            <span class="info-box-number" id="purchaseInfo">7.12</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-4">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">Most Paced Zone</h3>
+          </div>
+          <div class="card-body">
+            <div class="chart">
+              <canvas id="mostPacedZone" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">Total Time Spent In Toilet (Mins)</h3>
+          </div>
+          <div class="card-body">
+            <div class="chart">
+              <canvas id="totalTimeSpentInToilet" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">Average Sleep Time Over A Month (Hours)</h3>
+          </div>
+          <div class="card-body">
+            <div class="chart">
+              <canvas id="averageSleepTime" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">Most Entered Zone</h3>
+          </div>
+          <div class="card-body">
+            <div class="chart">
+              <canvas id="mostEnteredZone" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--div class="col-4">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">Time Spent in Toilet Per Trips Weekly (Mins)</h3>
+          </div>
+          <div class="card-body">
+            <div class="chart">
+              <canvas id="timeSpentInToiletPerTrips" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+            </div>
+          </div>
+        </div>
+      </div-->
+    </div>
+    <!-- /.row -->
+  </div>
+  <!-- /.container-fluid -->
+</div>
+<!-- /.content -->
+
+<script>
+$(function () {
+  $('#bilikNo').html("Bilik " + bilik);
+  //Date range as a button
+  /*$('#daterange-btn').daterangepicker(
+    {
+      ranges   : {
+        'Today'       : [moment(), moment()],
+        'Yesterday'   : [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+        'Last 7 Days' : [moment().subtract(6, 'days'), moment()],
+        'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+        'This Month'  : [moment().startOf('month'), moment().endOf('month')],
+        'Last Month'  : [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+      },
+      startDate: moment().subtract(6, 'days'),
+      endDate  : moment()
+    },
+    function (start, end) {
+      var startFormatted = formatDate(start) + " 00:00:00";
+      var endFormatted = formatDate(end) + " 23:59:59";
+      
+      $.post('php/getmonthly.php', {startDate: startFormatted, endDate: endFormatted}, function(data){
+        var obj = JSON.parse(data);
+
+        if(obj.status === 'success'){
+          $('#salesInfo').html(obj.oneUtamaCount);
+          $('#purchaseInfo').html(obj.damansaraCount);
+          $('#salesInfoPerc').html(parseFloat((5000/obj.oneUtamaCount) * 100).toFixed(2));
+          $('#salesInfoPerc2').html(parseFloat((1000/obj.damansaraCount) * 100).toFixed(2));
+
+          removeData(barChart);
+
+          for(var i=0; i<obj.message.length; i++){
+            addLineChartData(barChart, obj.message[i].Date, obj.message[i].uniqloOU, obj.message[i].uniqloDAS);
+          }
+        }
+        else if(obj.status === 'failed'){
+          toastr["error"](obj.message, "Failed:");
+        }
+        else{
+          toastr["error"]("Something wrong when geting data", "Failed:");
+        }
+      });
+    }
+  );*/
+
+  //-------------
+  //- DONUT CHART -
+  //-------------
+  // Get context with jQuery - using jQuery's .get() method.
+  var donutChartCanvas = $('#mostEnteredZone').get(0).getContext('2d');
+  var donutData        = {
+    labels: ['Sofa/Living Area', 'Kitchen', 'Main Door', 'Bathroom', 'Toilet', 'Window'],
+    datasets: [
+      {
+        data: [parseFloat(Math.random() * (76 - 49) + 49).toFixed(2), parseFloat(Math.random() * (30 - 20) + 20).toFixed(2), parseFloat(Math.random() * (10 - 3) + 3).toFixed(2), parseFloat(Math.random() * (9 - 7) + 7).toFixed(2), parseFloat(Math.random() * (9 - 7) + 7).toFixed(2), parseFloat(Math.random() * (5 - 3) + 3).toFixed(2)],
+        backgroundColor : ['#f4a522', '#6092cd', '#61b546', '#aa4498', '#dccc77', '#89dcf0'],
+      }
+    ]
+  }
+  var donutOptions = {maintainAspectRatio : false, responsive : true}
+  var totalVisitorsChart = new Chart(donutChartCanvas, {type: 'doughnut', data: donutData, options: donutOptions});
+
+  //-------------
+  //- BAR CHART -
+  //-------------
+  var barChartCanvas = $('#mostPacedZone').get(0).getContext('2d');
+  var barChartData = {
+    labels  : ['Sofa/Living Area', 'Bed Area', 'Kitchen'],
+    datasets: [
+      {
+        label               : 'Hours',
+        backgroundColor     : 'rgba(244, 165, 34, 0.9)',
+        borderColor         : 'rgba(244, 165, 34, 0.8)',
+        pointRadius         : false,
+        pointColor          : '#f4a522',
+        pointStrokeColor    : 'rgba(244, 165, 34, 1)',
+        pointHighlightFill  : '#fff',
+        pointHighlightStroke: 'rgba(244, 165, 34, 1)',
+        data                : [parseFloat(Math.random() * (76 - 49) + 49).toFixed(2), parseFloat(Math.random() * (76 - 49) + 49).toFixed(2), parseFloat(Math.random() * (30 - 20) + 20).toFixed(2)]
+      }
+    ]
+  }
+
+  var barChartOptions = {
+    indexAxis: 'y',
+    responsive: true, 
+    maintainAspectRatio: false, 
+    datasetFill: false,
+    plugins: {
+      legend: {
+        position: 'right',
+      }
+    }
+  }
+  var barChart = new Chart(barChartCanvas, {type: 'bar', data: barChartData, options: barChartOptions});
+
+  var barChartCanvas2 = $('#totalTimeSpentInToilet').get(0).getContext('2d');
+  var barChartData2 = {
+    labels  : ['22/02', '23/02', '24/02', '25/02', '26/02', '27/02'],
+    datasets: [
+      {
+        label               : 'Bathroom',
+        backgroundColor     : 'rgba(244, 165, 34, 0.9)',
+        borderColor         : 'rgba(244, 165, 34, 0.8)',
+        pointRadius         : false,
+        pointColor          : '#f4a522',
+        pointStrokeColor    : 'rgba(244, 165, 34, 1)',
+        pointHighlightFill  : '#fff',
+        pointHighlightStroke: 'rgba(244, 165, 34, 1)',
+        data                : [2, 1.5, parseFloat(Math.random() * (2 - 1) + 1).toFixed(2), parseFloat(Math.random() * (2 - 1) + 1).toFixed(2), parseFloat(Math.random() * (2 - 1) + 1).toFixed(2), parseFloat(Math.random() * (2 - 1) + 1).toFixed(2)]
+      },
+      {
+        label               : 'Shower & Toilet',
+        backgroundColor     : 'rgba(96, 146, 205, 1)',
+        borderColor         : 'rgba(96, 146, 205, 1)',
+        pointRadius         : false,
+        pointColor          : 'rgba(96, 146, 205, 1)',
+        pointStrokeColor    : '#6092cd',
+        pointHighlightFill  : '#fff',
+        pointHighlightStroke: 'rgba(96, 146, 205, 1)',
+        data                : [1.5, parseFloat(Math.random() * (2 - 1) + 1).toFixed(2), 2, parseFloat(Math.random() * (2 - 1) + 1).toFixed(2), parseFloat(Math.random() * (2 - 1) + 1).toFixed(2), 1.3, 1.2]
+      }
+    ]
+  }
+
+  var barChartOptions2 = {responsive: true, maintainAspectRatio: false, datasetFill: false}
+  var barChart2 = new Chart(barChartCanvas2, {type: 'bar', data: barChartData2, options: barChartOptions2});
+
+  var lineChartCanvas = $('#averageSleepTime').get(0).getContext('2d');
+  var lineChartOptions = {responsive: true, maintainAspectRatio: false, datasetFill: false};
+  var lineChartData = {
+    labels  : ['22/02', '23/02', '24/02', '25/02', '26/02', '27/02'],
+    datasets: [
+      {
+        label               : 'Hours',
+        backgroundColor     : 'rgba(244, 165, 34, 0.9)',
+        borderColor         : 'rgba(244, 165, 34, 0.8)',
+        pointRadius         : false,
+        pointColor          : '#f4a522',
+        pointStrokeColor    : 'rgba(244, 165, 34, 1)',
+        pointHighlightFill  : '#fff',
+        pointHighlightStroke: 'rgba(244, 165, 34, 1)',
+        data                : [parseFloat(Math.random() * (9.5 - 5) + 5).toFixed(2), parseFloat(Math.random() * (9.5 - 5) + 5).toFixed(2), parseFloat(Math.random() * (9.5 - 5) + 5).toFixed(2), parseFloat(Math.random() * (9.5 - 5) + 5).toFixed(2), parseFloat(Math.random() * (9.5 - 5) + 5).toFixed(2), parseFloat(Math.random() * (9.5 - 5) + 5).toFixed(2)]
+      }
+    ]
+  }
+
+  lineChartData.datasets[0].fill = false;
+  lineChartOptions.datasetFill = false
+  var lineChart = new Chart(lineChartCanvas, {type: 'line', data: lineChartData, options: lineChartOptions});
+
+  /*var passedInGroundDaily = new Chart(lineChartCanvas3, {
+    type: 'line',
+    data: lineChartData,
+    options: lineChartOptions
+  });
+
+  /*$.post('php/getmonthly.php', {startDate: formatDate(moment().subtract(6, 'days')) + " 00:00:00", endDate: formatDate(moment()) + " 23:59:59"}, function(data){
+    var obj = JSON.parse(data);
+
+    if(obj.status === 'success'){
+      $('#salesInfo').html(obj.oneUtamaCount);
+      $('#purchaseInfo').html(obj.damansaraCount);
+      $('#salesInfoPerc').html(parseFloat((5000/obj.oneUtamaCount) * 100).toFixed(2));
+      $('#salesInfoPerc2').html(parseFloat((1000/obj.damansaraCount) * 100).toFixed(2));
+
+      removeData(barChart);
+
+      for(var i=0; i<obj.message.length; i++){
+        addLineChartData(barChart, obj.message[i].Date, obj.message[i].uniqloOU, obj.message[i].uniqloDAS);
+      }
+    }
+    else if(obj.status === 'failed'){
+      toastr["error"](obj.message, "Failed:");
+    }
+    else{
+      toastr["error"]("Something wrong when geting data", "Failed:");
+    }
+  });*/
+});
+</script>
