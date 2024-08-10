@@ -85,25 +85,25 @@ else{
           <li class="nav-item menu-is-opening menu-open">
             <a href="#" class="nav-link" style="color: black;">
               <i class="nav-icon fas fa-store"></i>
-              <p>Uniqlo<i class="fas fa-angle-left right"></i></p>
+              <p>Retail<i class="fas fa-angle-left right"></i></p>
             </a>
             <ul class="nav nav-treeview" style="display: block;">
               <li class="nav-item">
                 <a href="#home" data-file="home.html" class="nav-link link active" style="color: black;">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Main Page</p>
+                  <p>Conversion</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="#1utama" data-file="1utama.html" class="nav-link link" style="color: black;">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Uniqlo OU</p>
+                  <p>Entrance Counting</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="#damansara" data-file="damansara.html" class="nav-link link" style="color: black;">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Uniqlo DAS</p>
+                  <p>Zone Activity</p>
                 </a>
               </li>
               <?php
@@ -121,19 +121,25 @@ else{
           <li class="nav-item">
             <a href="#" class="nav-link" style="color: black;">
               <i class="nav-icon fas fa-road"></i>
-              <p>Melaka<i class="fas fa-angle-left right"></i></p>
+              <p>Street<i class="fas fa-angle-left right"></i></p>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
                 <a href="#jonker" data-file="jonker.html" class="nav-link link" style="color: black;">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Jonker Street</p>
+                  <p>Junction</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#merah" data-file="merah.html" class="nav-link link" style="color: black;">
+                  <i class="nav-icon far fa-circle"></i>
+                  <p>Tourist Zone</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="#pasar" data-file="pasar.html" class="nav-link link" style="color: black;">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Pasar</p>
+                  <p>Vehicle Counting</p>
                 </a>
               </li>
             </ul>
@@ -141,11 +147,11 @@ else{
           <li class="nav-item">
             <a href="#" class="nav-link" style="color: black;">
               <i class="nav-icon fas fa-crop"></i>
-              <p>Felda<i class="fas fa-angle-left right"></i></p>
+              <p>Agriculture<i class="fas fa-angle-left right"></i></p>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="#home" data-file="home.html" class="nav-link link" style="color: black;">
+                <a href="#feldashboard" data-file="dashboard.html" class="nav-link link" style="color: black;">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Dashboard</p>
                 </a>
@@ -161,7 +167,7 @@ else{
           <li class="nav-item">
             <a href="#" class="nav-link" style="color: black;">
               <i class="nav-icon fas fa-map"></i>
-              <p>IJM<i class="fas fa-angle-left right"></i></p>
+              <p>Highway<i class="fas fa-angle-left right"></i></p>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
@@ -178,12 +184,12 @@ else{
               <p>Fall Detection</p>
             </a>
           </li>
-          <li class="nav-item">
+          <!--li class="nav-item">
             <a href="#vehiclecounting" data-file="vehiclecounting.html" class="nav-link link" style="color: black;">
               <i class="nav-icon fas fa-car"></i>
               <p>Vehicle Counting</p>
             </a>
-          </li>
+          </li-->
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link" style="color: black;">
               <i class="nav-icon fas fa-cogs"></i>
@@ -272,6 +278,7 @@ else{
 <script src="plugins/datatables-buttons/js/buttons.print.min.js"></script>
 <script src="plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 <script src="plugins/jquery-validation/jquery.validate.min.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAjjbv6izl-JmncmbItl_S2_6OetztzjF8"></script>
 <script>
 var ouStartDate = "";
 var ouEndDate = "";
@@ -324,7 +331,8 @@ $(function () {
   $("a[href='#home']").click();
 });
 
-function addData(chart, label, data) {
+// Melaka one
+function addDataM(chart, label, data) {
   chart.data.labels.push(label);
   chart.data.datasets.forEach((dataset) => {
     dataset.data.push(data);
@@ -332,7 +340,60 @@ function addData(chart, label, data) {
   chart.update();
 }
 
-function addStackChartData(chart, label, data, data2, data3, data4, data5, data6, data7, data8, data9) {
+function addStackChartDataM(chart, label, data, data2, data3, data4, data5, data6) {
+  chart.data.labels.push(label);
+  chart.data.datasets[0].data.push(data);
+  chart.data.datasets[1].data.push(data2);
+  chart.data.datasets[2].data.push(data3);
+  chart.data.datasets[3].data.push(data4);
+  chart.data.datasets[4].data.push(data5);
+  chart.data.datasets[5].data.push(data6);
+  chart.update();
+}
+
+function addStackChartData2M(chart, label, data, data2, data3, data4) {
+  chart.data.labels.push(label);
+  chart.data.datasets[0].data.push(data);
+  chart.data.datasets[1].data.push(data2);
+  chart.data.datasets[2].data.push(data3);
+  chart.data.datasets[3].data.push(data4);
+  chart.update();
+}
+
+function addBarChartDataM(chart, label, data) {
+  chart.data.labels.push(label);
+  chart.data.datasets[0].data.push(data);
+  chart.update();
+}
+
+function addLineChartDataM(chart, label, data, data2) {
+  chart.data.labels.push(label);
+  chart.data.datasets[0].data.push(data);
+  chart.data.datasets[1].data.push(data2);
+  chart.update();
+}
+
+function removeDataM(chart) {
+  while(chart.data.labels.length > 0){
+    chart.data.labels.pop();
+  }
+
+  chart.data.datasets.forEach((dataset) => {
+    dataset.data = [];
+  });
+  chart.update();
+}
+
+// Uniqlo
+function addDataU(chart, label, data) {
+  chart.data.labels.push(label);
+  chart.data.datasets.forEach((dataset) => {
+    dataset.data.push(data);
+  });
+  chart.update();
+}
+
+function addStackChartDataU(chart, label, data, data2, data3, data4, data5, data6, data7, data8, data9) {
   chart.data.labels.push(label);
   chart.data.datasets[0].data.push(data);
   chart.data.datasets[1].data.push(data2);
@@ -346,31 +407,20 @@ function addStackChartData(chart, label, data, data2, data3, data4, data5, data6
   chart.update();
 }
 
-function addStackChartData2(chart, label, data, data2, data3, data4, data5, data6) {
-  chart.data.labels.push(label);
-  chart.data.datasets[0].data.push(data);
-  chart.data.datasets[1].data.push(data2);
-  chart.data.datasets[2].data.push(data3);
-  chart.data.datasets[3].data.push(data4);
-  chart.data.datasets[4].data.push(data5);
-  chart.data.datasets[5].data.push(data6);
-  chart.update();
-}
-
-function addBarChartData(chart, label, data) {
+function addBarChartDataU(chart, label, data) {
   chart.data.labels.push(label);
   chart.data.datasets[0].data.push(data);
   chart.update();
 }
 
-function addLineChartData(chart, label, data, data2) {
+function addLineChartDataU(chart, label, data, data2) {
   chart.data.labels.push(label);
   chart.data.datasets[0].data.push(data);
   chart.data.datasets[1].data.push(data2);
   chart.update();
 }
 
-function removeData(chart) {
+function removeDataU(chart) {
   while(chart.data.labels.length > 0){
     chart.data.labels.pop();
   }
@@ -381,6 +431,85 @@ function removeData(chart) {
   chart.update();
 }
 
+// Felda
+function addDataF(chart, label, data) {
+  chart.data.labels.push(label);
+  chart.data.datasets.forEach((dataset) => {
+    dataset.data.push(data);
+  });
+  chart.update();
+}
+
+function addStackChartDataF(chart, label, data, data2, data3, data4, data5, data6, data7, data8, data9) {
+  chart.data.labels.push(label);
+  chart.data.datasets[0].data.push(data);
+  chart.data.datasets[1].data.push(data2);
+  chart.data.datasets[2].data.push(data3);
+  chart.data.datasets[3].data.push(data4);
+  chart.data.datasets[4].data.push(data5);
+  chart.data.datasets[5].data.push(data6);
+  chart.data.datasets[6].data.push(data7);
+  chart.data.datasets[7].data.push(data8);
+  chart.data.datasets[8].data.push(data9);
+  chart.update();
+}
+
+function addBarChartDataF(chart, label, data, data2) {
+  chart.data.labels.push(label);
+  chart.data.datasets[0].data.push(data);
+  chart.data.datasets[1].data.push(data2);
+  chart.update();
+}
+
+function addLineChartDataF(chart, label, data, data2, data3) {
+  chart.data.labels.push(label);
+  chart.data.datasets[0].data.push(data);
+  chart.data.datasets[1].data.push(data2);
+  chart.data.datasets[2].data.push(data3);
+  chart.update();
+}
+
+function removeDataF(chart) {
+  while(chart.data.labels.length > 0){
+    chart.data.labels.pop();
+  }
+
+  chart.data.datasets.forEach((dataset) => {
+    dataset.data = [];
+  });
+  chart.update();
+}
+
+// IJM
+function addDataI(chart, label, data) {
+  chart.data.labels.push(label);
+  chart.data.datasets.forEach((dataset) => {
+    dataset.data.push(data);
+  });
+  chart.update();
+}
+
+function addStackChartDataI(chart, label, data, data2, data3, data4) {
+  chart.data.labels.push(label);
+  chart.data.datasets[0].data.push(data);
+  chart.data.datasets[1].data.push(data2);
+  chart.data.datasets[2].data.push(data3);
+  chart.data.datasets[3].data.push(data4);
+  chart.update();
+}
+
+function removeDataI(chart) {
+  while(chart.data.labels.length > 0){
+    chart.data.labels.pop();
+  }
+
+  chart.data.datasets.forEach((dataset) => {
+    dataset.data = [];
+  });
+  chart.update();
+}
+
+// General
 function formatDate(date) {
   var d = new Date(date),
   month = '' + (d.getMonth() + 1),

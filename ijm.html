@@ -2,11 +2,11 @@
   <div class="container-fluid">
     <div class="row mb-2">
       <div class="col-sm-6">
-        <h1 class="m-0">IJM</h1>
+        <h1 class="m-0">Highway</h1>
       </div><!-- /.col -->
       <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">
-          <li class="breadcrumb-item">IJM</li>
+          <li class="breadcrumb-item">Highway</li>
           <li class="breadcrumb-item active">Dashboard</li>
         </ol>
       </div><!-- /.col -->
@@ -226,15 +226,15 @@ $(function () {
         var obj = JSON.parse(data);
 
         if(obj.status === 'success'){
-          removeData(passedInGroundPie);
-          removeData(stackChart3);
-          addData(passedInGroundPie, 'Car & Van', obj.type1);
-          addData(passedInGroundPie, 'Small Lorry, 2 Axles', obj.type2);
-          addData(passedInGroundPie, 'Big Lorry, 3 Axles and Above', obj.type3);
-          addData(passedInGroundPie, 'Bus', obj.type4);
+          removeDataI(passedInGroundPie);
+          removeDataI(stackChart3);
+          addDataI(passedInGroundPie, 'Car & Van', obj.type1);
+          addDataI(passedInGroundPie, 'Small Lorry, 2 Axles', obj.type2);
+          addDataI(passedInGroundPie, 'Big Lorry, 3 Axles and Above', obj.type3);
+          addDataI(passedInGroundPie, 'Bus', obj.type4);
 
           for(var i=0; i<obj.message.length; i++){
-            addStackChartData(stackChart3, obj.message[i].Date, obj.message[i].type1, obj.message[i].type2, obj.message[i].type3, obj.message[i].type4);
+            addStackChartDataI(stackChart3, obj.message[i].Date, obj.message[i].type1, obj.message[i].type2, obj.message[i].type3, obj.message[i].type4);
           }
         }
         else if(obj.status === 'failed'){
@@ -394,11 +394,11 @@ $(function () {
         reservationtime = $('#reservationtime').val() ? $('#reservationtime').val() + ':00' : '00:00:00',
         endtime = $('#endtime').val() ? $('#endtime').val() + ':59' : '23:59:59';
 
-    $.post('php/getdaily.php', {startDate: reservationdate + " " + reservationtime, endDate: reservationdate + " " + endtime}, function(data){
+    $.post('php/getijmdaily.php', {startDate: reservationdate + " " + reservationtime, endDate: reservationdate + " " + endtime}, function(data){
       var obj = JSON.parse(data);
 
       if(obj.status === 'success'){
-        removeData(lineChart);
+        removeDataI(lineChart);
 
         for(var i=0; i<obj.message.length; i++){
           addLineChartData(lineChart, obj.message[i].Date, obj.message[i].type1, obj.message[i].type2, obj.message[i].type3, obj.message[i].type4);
@@ -417,15 +417,15 @@ $(function () {
     var obj = JSON.parse(data);
 
     if(obj.status === 'success'){
-      removeData(passedInGroundPie);
-      removeData(stackChart3);
-      addData(passedInGroundPie, 'Car & Van', obj.type1);
-      addData(passedInGroundPie, 'Small Lorry, 2 Axles', obj.type2);
-      addData(passedInGroundPie, 'Big Lorry, 3 Axles and Above', obj.type3);
-      addData(passedInGroundPie, 'Bus', obj.type4);
+      removeDataI(passedInGroundPie);
+      removeDataI(stackChart3);
+      addDataI(passedInGroundPie, 'Car & Van', obj.type1);
+      addDataI(passedInGroundPie, 'Small Lorry, 2 Axles', obj.type2);
+      addDataI(passedInGroundPie, 'Big Lorry, 3 Axles and Above', obj.type3);
+      addDataI(passedInGroundPie, 'Bus', obj.type4);
 
       for(var i=0; i<obj.message.length; i++){
-        addStackChartData(stackChart3, obj.message[i].Date, obj.message[i].type1, obj.message[i].type2, obj.message[i].type3, obj.message[i].type4);
+        addStackChartDataI(stackChart3, obj.message[i].Date, obj.message[i].type1, obj.message[i].type2, obj.message[i].type3, obj.message[i].type4);
       }
     }
     else if(obj.status === 'failed'){
@@ -436,11 +436,11 @@ $(function () {
     }
   });
 
-  $.post('php/getdaily.php', {startDate: $('#reservationdate').val() + " " + $('#reservationtime').val() + ':00', endDate: $('#reservationdate').val() + " " + $('#endtime').val() + ':59'}, function(data){
+  $.post('php/getijmdaily.php', {startDate: $('#reservationdate').val() + " " + $('#reservationtime').val() + ':00', endDate: $('#reservationdate').val() + " " + $('#endtime').val() + ':59'}, function(data){
     var obj = JSON.parse(data);
 
     if(obj.status === 'success'){
-      removeData(lineChart);
+      removeDataI(lineChart);
 
       for(var i=0; i<obj.message.length; i++){
         addLineChartData(lineChart, obj.message[i].Date, obj.message[i].type1, obj.message[i].type2, obj.message[i].type3, obj.message[i].type4);

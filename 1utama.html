@@ -7,7 +7,7 @@
       <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">
           <li class="breadcrumb-item"><a href="#">Home</a></li>
-          <li class="breadcrumb-item active">Uniqlo OU</li>
+          <li class="breadcrumb-item active">Entrance Counting</li>
         </ol>
       </div><!-- /.col -->
     </div><!-- /.row -->
@@ -513,26 +513,26 @@ $(function () {
         ouEndDate = endFormatted;
 
         if(obj.status === 'success'){
-          removeData(totalVisitorsChart);
-          addData(totalVisitorsChart, 'Ground', obj.groundTotalCount);
-          addData(totalVisitorsChart, 'Level 1', obj.lvl1TotalCount);
+          removeDataU(totalVisitorsChart);
+          addDataU(totalVisitorsChart, 'Ground', obj.groundTotalCount);
+          addDataU(totalVisitorsChart, 'Level 1', obj.lvl1TotalCount);
 
-          removeData(passedInGroundPie);
-          addData(passedInGroundPie, 'Passing By', obj.groundPassingCount);
-          addData(passedInGroundPie, 'In', obj.groundInCount);
+          removeDataU(passedInGroundPie);
+          addDataU(passedInGroundPie, 'Passing By', obj.groundPassingCount);
+          addDataU(passedInGroundPie, 'In', obj.groundInCount);
           
-          removeData(passedInLvl1Pie);
-          addData(passedInLvl1Pie, 'Passing By', obj.lvl1PassingCount);
-          addData(passedInLvl1Pie, 'In', obj.lvl1InCount);
+          removeDataU(passedInLvl1Pie);
+          addDataU(passedInLvl1Pie, 'Passing By', obj.lvl1PassingCount);
+          addDataU(passedInLvl1Pie, 'In', obj.lvl1InCount);
 
-          removeData(barChartMonthly);
-          removeData(lineChartMonthly);
-          removeData(lineChartInLvl1Monthly);
+          removeDataU(barChartMonthly);
+          removeDataU(lineChartMonthly);
+          removeDataU(lineChartInLvl1Monthly);
 
           for(var i=0; i<obj.message.length; i++){
-            addLineChartData(barChartMonthly, obj.message[i].Date, obj.message[i].TotalGroundCount, obj.message[i].TotalLvl1Count);
-            addLineChartData(lineChartMonthly, obj.message[i].Date, obj.message[i].InStoreGroundCount, obj.message[i].PassingGroundCount);
-            addLineChartData(lineChartInLvl1Monthly, obj.message[i].Date, obj.message[i].InStoreLvl1Count, obj.message[i].PassingLvl1Count);
+            addLineChartDataU(barChartMonthly, obj.message[i].Date, obj.message[i].TotalGroundCount, obj.message[i].TotalLvl1Count);
+            addLineChartDataU(lineChartMonthly, obj.message[i].Date, obj.message[i].InStoreGroundCount, obj.message[i].PassingGroundCount);
+            addLineChartDataU(lineChartInLvl1Monthly, obj.message[i].Date, obj.message[i].InStoreLvl1Count, obj.message[i].PassingLvl1Count);
           }
           
           if(formatDate(start) == formatDate(end)){
@@ -822,26 +822,26 @@ $(function () {
         var obj = JSON.parse(data);
 
         if(obj.status === 'success'){
-          removeData(totalDailyVisitors);
-          addData(totalDailyVisitors, 'Ground', obj.groundTotalCount);
-          addData(totalDailyVisitors, 'Level 1', obj.lvl1TotalCount);
+          removeDataU(totalDailyVisitors);
+          addDataU(totalDailyVisitors, 'Ground', obj.groundTotalCount);
+          addDataU(totalDailyVisitors, 'Level 1', obj.lvl1TotalCount);
 
-          removeData(passedInGroundPieDaily);
-          addData(passedInGroundPieDaily, 'Passing By', obj.groundPassingCount);
-          addData(passedInGroundPieDaily, 'In', obj.groundInCount);
+          removeDataU(passedInGroundPieDaily);
+          addDataU(passedInGroundPieDaily, 'Passing By', obj.groundPassingCount);
+          addDataU(passedInGroundPieDaily, 'In', obj.groundInCount);
           
-          removeData(passedInLvl1PieDaily);
-          addData(passedInLvl1PieDaily, 'Passing By', obj.lvl1PassingCount);
-          addData(passedInLvl1PieDaily, 'In', obj.lvl1InCount);
+          removeDataU(passedInLvl1PieDaily);
+          addDataU(passedInLvl1PieDaily, 'Passing By', obj.lvl1PassingCount);
+          addDataU(passedInLvl1PieDaily, 'In', obj.lvl1InCount);
 
-          removeData(totalVisitorsDaily);
-          removeData(passedInGroundDaily);
-          removeData(passedInLvl1Daily);
+          removeDataU(totalVisitorsDaily);
+          removeDataU(passedInGroundDaily);
+          removeDataU(passedInLvl1Daily);
 
           for(var i=0; i<obj.message.length; i++){
-            addLineChartData(totalVisitorsDaily, obj.message[i].Date, obj.message[i].TotalGroundCount, obj.message[i].TotalLvl1Count);
-            addLineChartData(passedInGroundDaily, obj.message[i].Date, obj.message[i].InStoreGroundCount, obj.message[i].PassingGroundCount);
-            addLineChartData(passedInLvl1Daily, obj.message[i].Date, obj.message[i].InStoreLvl1Count, obj.message[i].PassingLvl1Count);
+            addLineChartDataU(totalVisitorsDaily, obj.message[i].Date, obj.message[i].TotalGroundCount, obj.message[i].TotalLvl1Count);
+            addLineChartDataU(passedInGroundDaily, obj.message[i].Date, obj.message[i].InStoreGroundCount, obj.message[i].PassingGroundCount);
+            addLineChartDataU(passedInLvl1Daily, obj.message[i].Date, obj.message[i].InStoreLvl1Count, obj.message[i].PassingLvl1Count);
           }
         }
         else if(obj.status === 'failed'){
@@ -866,26 +866,26 @@ $(function () {
     ouEndDate = formatDate(formatDate(moment()) + " 00:00:00") + " 23:59:59";
 
     if(obj.status === 'success'){
-      removeData(totalVisitorsChart);
-      addData(totalVisitorsChart, 'Ground', obj.groundTotalCount);
-      addData(totalVisitorsChart, 'Level 1', obj.lvl1TotalCount);
+      removeDataU(totalVisitorsChart);
+      addDataU(totalVisitorsChart, 'Ground', obj.groundTotalCount);
+      addDataU(totalVisitorsChart, 'Level 1', obj.lvl1TotalCount);
 
-      removeData(passedInGroundPie);
-      addData(passedInGroundPie, 'Passing By', obj.groundPassingCount);
-      addData(passedInGroundPie, 'In', obj.groundInCount);
+      removeDataU(passedInGroundPie);
+      addDataU(passedInGroundPie, 'Passing By', obj.groundPassingCount);
+      addDataU(passedInGroundPie, 'In', obj.groundInCount);
       
-      removeData(passedInLvl1Pie);
-      addData(passedInLvl1Pie, 'Passing By', obj.lvl1PassingCount);
-      addData(passedInLvl1Pie, 'In', obj.lvl1InCount);
+      removeDataU(passedInLvl1Pie);
+      addDataU(passedInLvl1Pie, 'Passing By', obj.lvl1PassingCount);
+      addDataU(passedInLvl1Pie, 'In', obj.lvl1InCount);
 
-      removeData(barChartMonthly);
-      removeData(lineChartMonthly);
-      removeData(lineChartInLvl1Monthly);
+      removeDataU(barChartMonthly);
+      removeDataU(lineChartMonthly);
+      removeDataU(lineChartInLvl1Monthly);
 
       for(var i=0; i<obj.message.length; i++){
-        addLineChartData(barChartMonthly, obj.message[i].Date, obj.message[i].TotalGroundCount, obj.message[i].TotalLvl1Count);
-        addLineChartData(lineChartMonthly, obj.message[i].Date, obj.message[i].InStoreGroundCount, obj.message[i].PassingGroundCount);
-        addLineChartData(lineChartInLvl1Monthly, obj.message[i].Date, obj.message[i].InStoreLvl1Count, obj.message[i].PassingLvl1Count);
+        addLineChartDataU(barChartMonthly, obj.message[i].Date, obj.message[i].TotalGroundCount, obj.message[i].TotalLvl1Count);
+        addLineChartDataU(lineChartMonthly, obj.message[i].Date, obj.message[i].InStoreGroundCount, obj.message[i].PassingGroundCount);
+        addLineChartDataU(lineChartInLvl1Monthly, obj.message[i].Date, obj.message[i].InStoreLvl1Count, obj.message[i].PassingLvl1Count);
       }
       
     }
@@ -903,26 +903,26 @@ $(function () {
     ouEndTime = $('#reservationdate').val() + " " + $('#endtime').val() + ':59';
 
     if(obj.status === 'success'){
-      removeData(totalDailyVisitors);
-      addData(totalDailyVisitors, 'Ground', obj.groundTotalCount);
-      addData(totalDailyVisitors, 'Level 1', obj.lvl1TotalCount);
+      removeDataU(totalDailyVisitors);
+      addDataU(totalDailyVisitors, 'Ground', obj.groundTotalCount);
+      addDataU(totalDailyVisitors, 'Level 1', obj.lvl1TotalCount);
 
-      removeData(passedInGroundPieDaily);
-      addData(passedInGroundPieDaily, 'Passing By', obj.groundPassingCount);
-      addData(passedInGroundPieDaily, 'In', obj.groundInCount);
+      removeDataU(passedInGroundPieDaily);
+      addDataU(passedInGroundPieDaily, 'Passing By', obj.groundPassingCount);
+      addDataU(passedInGroundPieDaily, 'In', obj.groundInCount);
       
-      removeData(passedInLvl1PieDaily);
-      addData(passedInLvl1PieDaily, 'Passing By', obj.lvl1PassingCount);
-      addData(passedInLvl1PieDaily, 'In', obj.lvl1InCount);
+      removeDataU(passedInLvl1PieDaily);
+      addDataU(passedInLvl1PieDaily, 'Passing By', obj.lvl1PassingCount);
+      addDataU(passedInLvl1PieDaily, 'In', obj.lvl1InCount);
 
-      removeData(totalVisitorsDaily);
-      removeData(passedInGroundDaily);
-      removeData(passedInLvl1Daily);
+      removeDataU(totalVisitorsDaily);
+      removeDataU(passedInGroundDaily);
+      removeDataU(passedInLvl1Daily);
 
       for(var i=0; i<obj.message.length; i++){
-        addLineChartData(totalVisitorsDaily, obj.message[i].Date, obj.message[i].TotalGroundCount, obj.message[i].TotalLvl1Count);
-        addLineChartData(passedInGroundDaily, obj.message[i].Date, obj.message[i].InStoreGroundCount, obj.message[i].PassingGroundCount);
-        addLineChartData(passedInLvl1Daily, obj.message[i].Date, obj.message[i].InStoreLvl1Count, obj.message[i].PassingLvl1Count);
+        addLineChartDataU(totalVisitorsDaily, obj.message[i].Date, obj.message[i].TotalGroundCount, obj.message[i].TotalLvl1Count);
+        addLineChartDataU(passedInGroundDaily, obj.message[i].Date, obj.message[i].InStoreGroundCount, obj.message[i].PassingGroundCount);
+        addLineChartDataU(passedInLvl1Daily, obj.message[i].Date, obj.message[i].InStoreLvl1Count, obj.message[i].PassingLvl1Count);
       }
     }
     else if(obj.status === 'failed'){

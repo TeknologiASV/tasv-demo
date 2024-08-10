@@ -16,7 +16,7 @@ if(isset($_POST['branch'], $_POST['transactions'])){
     $message = array();
 
     for($i=0; $i<count($transactionsArray); $i++){
-        if ($select_stmt = $db->prepare("SELECT COUNT(*) FROM transaction WHERE Date = ? AND Outlet = ?")) {
+        if ($select_stmt = $dbU->prepare("SELECT COUNT(*) FROM transaction WHERE Date = ? AND Outlet = ?")) {
             $select_stmt->bind_param('ss', $transactionsArray[$i]['date'], $branch);
             
             // Execute the prepared query.
@@ -28,7 +28,7 @@ if(isset($_POST['branch'], $_POST['transactions'])){
 
                 if($row = $result->fetch_assoc()){
                     if($row['COUNT(*)'] == '0'){
-                        if ($insert_stmt = $db->prepare("INSERT INTO transaction (Date, Transaction, Outlet) VALUES (?, ? ,?)")) {
+                        if ($insert_stmt = $dbU->prepare("INSERT INTO transaction (Date, Transaction, Outlet) VALUES (?, ? ,?)")) {
                             $insert_stmt->bind_param('sss', $transactionsArray[$i]['date'], $transactionsArray[$i]['count'], $branch);
                             
                             // Execute the prepared query.

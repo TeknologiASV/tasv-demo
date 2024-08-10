@@ -8,7 +8,7 @@ if(isset($_POST['startDate'], $_POST['endDate'])){
     $endDate = filter_input(INPUT_POST, 'endDate', FILTER_SANITIZE_STRING);
     $location = filter_input(INPUT_POST, 'location', FILTER_SANITIZE_STRING);
 
-    if ($select_stmt = $db->prepare("SELECT * FROM Melaka_traffic WHERE Date>=? AND Date<=? ORDER BY Date")) {
+    if ($select_stmt = $dbM->prepare("SELECT * FROM Melaka_traffic WHERE Date>=? AND Date<=? ORDER BY Date")) {
         $select_stmt->bind_param('ss', $startDate, $endDate);
         
         // Execute the prepared query.

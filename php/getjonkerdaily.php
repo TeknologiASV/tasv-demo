@@ -9,7 +9,13 @@ $cars = array (
     array(20,9,21,11,17,22),
     array(19,7,25,13,17,19),
     array(17,8,26,13,16,20),
-    array(21,8,22,10,17,22)
+    array(21,8,22,10,17,22),
+    array(21,8,22,10,17,22),
+    array(21,10,22,8,17,22),
+    array(21,10,22,9,16,22),
+    array(21,11,22,8,16,22),
+    array(21,11,22,10,16,20),
+    array(21,10,20,6,17,22)
 );
 
 if(isset($_POST['startDate'], $_POST['endDate'])){
@@ -17,7 +23,7 @@ if(isset($_POST['startDate'], $_POST['endDate'])){
     $endDate = filter_input(INPUT_POST, 'endDate', FILTER_SANITIZE_STRING);
     $location = filter_input(INPUT_POST, 'location', FILTER_SANITIZE_STRING);
 
-    if ($select_stmt = $db->prepare("SELECT * FROM Melaka_traffic WHERE Date>=? AND Date<=? ORDER BY Date")) {
+    if ($select_stmt = $dbM->prepare("SELECT * FROM Melaka_traffic WHERE Date>=? AND Date<=? ORDER BY Date")) {
         $select_stmt->bind_param('ss', $startDate, $endDate);
         
         // Execute the prepared query.
@@ -40,9 +46,10 @@ if(isset($_POST['startDate'], $_POST['endDate'])){
             $ent6Count = 0;
             
             while ($row = $result->fetch_assoc()) {
-                if(!in_array(substr($row['Date'], 10, 3), $dateBar)){
+                if(!in_array(substr($row['Date'], 0, 10). ' ' . substr($row['Date'], 10, 3), $dateBar)){
                     $message[] = array( 
-                        'Date' => substr($row['Date'], 10, 3).":00",
+                        'Date' => substr($row['Date'], 0, 10). ' ' . substr($row['Date'], 10, 3).":00",
+                        'Date2' => substr($row['Date'], 0, 10),
                         'ent1Count' => 0,
                         'ent2Count' => 0,
                         'ent3Count' => 0,
@@ -50,22 +57,20 @@ if(isset($_POST['startDate'], $_POST['endDate'])){
                         'ent5Count' => 0,
                         'ent6Count' => 0,
                         'veh2Count' => 0,
-                        'veh7Count' => 0
+                        'veh7Count' => 0,
+                        'total' => 0
                     );
 
-                    array_push($dateBar, substr($row['Date'], 10, 3));
+                    array_push($dateBar, substr($row['Date'], 0, 10). ' ' . substr($row['Date'], 10, 3));
                 }
 
-                $key = array_search(substr($row['Date'], 10, 3), $dateBar);
+                $key = array_search(substr($row['Date'], 0, 10). ' ' . substr($row['Date'], 10, 3), $dateBar);
 
                 if($row['Place'] == 'Jonker'){
                     if($row['Condition'] == 'PPL-in'){
                         if($row['Device'] == 'jp1'){
                             $message[$key]['ent1Count'] += (int)$row['Count'];
                             $ent1Count += (int)$row['Count'];
-
-                            $message[$key]['ent6Count'] += ceil((int)$row['Count'] * 0.8);
-                            $ent6Count += ceil((int)$row['Count'] * 0.8);
                         }
                         else if($row['Device'] == 'jp3'){
                             $message[$key]['ent2Count'] += (int)$row['Count'];
@@ -83,28 +88,112 @@ if(isset($_POST['startDate'], $_POST['endDate'])){
                             $message[$key]['ent5Count'] += (int)$row['Count'];
                             $ent5Count += (int)$row['Count'];
                         }
-                        else if($row['Device'] == 'jp7' || $row['Device'] == 'jp8'){
+                        else if($row['Device'] == 'jp8'){
                             $message[$key]['ent6Count'] += (int)$row['Count'];
                             $ent6Count += (int)$row['Count'];
                         }
                     }
                     else if($row['Condition'] == 'VCL-in'){
-                        if($row['Device'] == 'jp1'){
-                            $message[$key]['veh2Count'] += (int)$row['Count'];
-                        }
-                        else if($row['Device'] == 'jp7'){
+                        if($row['Device'] == 'jp7'){
                             $message[$key]['veh7Count'] += (int)$row['Count'];
                         }
                     }
                 }
             }
 
-            if($ent3Count <= 0){
-                $ent3Count = round($ent2Count * 0.75);
-            }
+            for($i=0; $i<count($message); $i++){
+                if($message[$i]['Date2'] >= "2023-05-28"){
+                    $month = 0;
 
-            if($ent5Count <= 0){
-                $ent5Count = round($ent3Count * 0.85);
+                    // Find month
+                    if(substr($message[$i]['Date2'], 5, 2) == '12'){
+                        $month = 0;
+                    }
+                    else if(substr($message[$i]['Date2'], 5, 2) == '01'){
+                        $month = 1;
+                    }
+                    else if(substr($message[$i]['Date2'], 5, 2) == '02'){
+                        $month = 2;
+                    }
+                    else if(substr($message[$i]['Date2'], 5, 2) == '03'){
+                        $month = 3;
+                    }
+                    else if(substr($message[$i]['Date2'], 5, 2) == '04'){
+                        $month = 4;
+                    }
+                    else if(substr($message[$i]['Date2'], 5, 2) == '05'){
+                        $month = 5;
+                    }
+                    else if(substr($message[$i]['Date2'], 5, 2) == '06'){
+                        $month = 6;
+                    }
+                    else if(substr($message[$i]['Date2'], 5, 2) == '07'){
+                        $month = 7;
+                    }
+                    else if(substr($message[$i]['Date2'], 5, 2) == '08'){
+                        $month = 8;
+                    }
+                    else if(substr($message[$i]['Date2'], 5, 2) == '09'){
+                        $month = 9;
+                    }
+                    else if(substr($message[$i]['Date2'], 5, 2) == '10'){
+                        $month = 10;
+                    }
+                    else if(substr($message[$i]['Date2'], 5, 2) == '11'){
+                        $month = 11;
+                    }
+
+                    //Find Total
+                    if($message[$i]['ent1Count'] != 0){
+                        $message[$i]['total'] = floatval($message[$i]['ent1Count']/$cars[$month][0] * 100);
+                    }
+                    else if($message[$i]['ent2Count'] != 0){
+                        $message[$i]['total'] = floatval($message[$i]['ent2Count']/$cars[$month][1] * 100);
+                    }
+                    else if($message[$i]['ent3Count'] != 0){
+                        $message[$i]['total'] = floatval($message[$i]['ent3Count']/$cars[$month][2] * 100);
+                    }
+                    else if($message[$i]['ent4Count'] != 0){
+                        $message[$i]['total'] = floatval($message[$i]['ent4Count']/$cars[$month][3] * 100);
+                    }
+                    else if($message[$i]['ent5Count'] != 0){
+                        $message[$i]['total'] = floatval($message[$i]['ent5Count']/$cars[$month][4] * 100);
+                    }
+                    else if($message[$i]['ent6Count'] != 0){
+                        $message[$i]['total'] = floatval($message[$i]['ent6Count']/$cars[$month][5] * 100);
+                    }
+
+                    // Assign Value
+                    if($message[$i]['ent1Count'] == 0){
+                        $message[$i]['ent1Count'] = round(floatval($message[$i]['total'] * ($cars[$month][0]/100)));
+                        $ent1Count += (int)$message[$i]['ent1Count'];
+                    }
+                    
+                    if($message[$i]['ent2Count'] == 0){
+                        $message[$i]['ent2Count'] = round(floatval($message[$i]['total'] * ($cars[$month][1]/100)));
+                        $ent2Count += (int)$message[$i]['ent2Count'];
+                    }
+                    
+                    if($message[$i]['ent3Count'] == 0){
+                        $message[$i]['ent3Count'] = round(floatval($message[$i]['total'] * ($cars[$month][2]/100)));
+                        $ent3Count += (int)$message[$i]['ent3Count'];
+                    }
+                    
+                    if($message[$i]['ent4Count'] == 0){
+                        $message[$i]['ent4Count'] = round(floatval($message[$i]['total'] * ($cars[$month][3]/100)));
+                        $ent4Count += (int)$message[$i]['ent4Count'];
+                    }
+                    
+                    if($message[$i]['ent5Count'] == 0){
+                        $message[$i]['ent5Count'] = round(floatval($message[$i]['total'] * ($cars[$month][4]/100)));
+                        $ent5Count += (int)$message[$i]['ent5Count'];
+                    }
+                    
+                    if($message[$i]['ent6Count'] == 0){
+                        $message[$i]['ent6Count'] = round(floatval($message[$i]['total'] * ($cars[$month][5]/100)));
+                        $ent6Count += (int)$message[$i]['ent6Count'];
+                    }
+                }
             }
             
             echo json_encode(

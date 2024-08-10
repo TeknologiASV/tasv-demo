@@ -9,7 +9,7 @@ if(isset($_POST['startDate'], $_POST['endDate'])){
     $location = filter_input(INPUT_POST, 'location', FILTER_SANITIZE_STRING);
     $door = 'in';
 
-    if ($select_stmt = $db->prepare("SELECT * FROM uniqlo_1u WHERE Door=? AND Date>=? AND Date<=? ORDER BY Date")) {
+    if ($select_stmt = $dbU->prepare("SELECT * FROM uniqlo_1u WHERE Door=? AND Date>=? AND Date<=? ORDER BY Date")) {
         $select_stmt->bind_param('sss', $door, $startDate, $endDate);
         
         // Execute the prepared query.
@@ -52,7 +52,7 @@ if(isset($_POST['startDate'], $_POST['endDate'])){
                 }
             }
             
-            if ($select_stmt2 = $db->prepare("SELECT * FROM uniqlo_DA WHERE Door=? AND Device=? AND Date>=? AND Date<=? ORDER BY Date")) {
+            if ($select_stmt2 = $dbU->prepare("SELECT * FROM uniqlo_DA WHERE Door=? AND Device=? AND Date>=? AND Date<=? ORDER BY Date")) {
                 $select_stmt2->bind_param('ssss', $door, $device, $startDate, $endDate);
                 
                 // Execute the prepared query.
@@ -73,7 +73,7 @@ if(isset($_POST['startDate'], $_POST['endDate'])){
                         //$oneUtamaCount += $row2['Count'];
                     }
 
-                    if ($select_stmt3 = $db->prepare("SELECT * FROM transaction WHERE Date>=? AND Date<=? ORDER BY Date")) {
+                    if ($select_stmt3 = $dbU->prepare("SELECT * FROM transaction WHERE Date>=? AND Date<=? ORDER BY Date")) {
                         $select_stmt3->bind_param('ss', $startDate, $endDate);
                         
                         // Execute the prepared query.

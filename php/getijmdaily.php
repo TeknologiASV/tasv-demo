@@ -29,9 +29,9 @@ if(isset($_POST['startDate'], $_POST['endDate'])){
             $type4 = 0;
 
             while ($row = $result->fetch_assoc()) {
-                if(!in_array(substr($row['Date'], 0, 10), $dateBar)){
+                if(!in_array(substr($row['Date'], 10, 3), $dateBar)){
                     $message[] = array( 
-                        'Date' => substr($row['Date'], 0, 10),
+                        'Date' => substr($row['Date'], 10, 3),
                         'type1' => 0,
                         'type2' => 0,
                         'type3' => 0,
@@ -39,10 +39,10 @@ if(isset($_POST['startDate'], $_POST['endDate'])){
                         'total' => 0
                     );
 
-                    array_push($dateBar, substr($row['Date'], 0, 10));
+                    array_push($dateBar, substr($row['Date'], 10, 3));
                 }
 
-                $key = array_search(substr($row['Date'], 0, 10), $dateBar);
+                $key = array_search(substr($row['Date'], 10, 3), $dateBar);
                 $message[$key]['total'] += (int)$row['Count'];
 
                 if($row['Vehicle_Type'] == '1'){

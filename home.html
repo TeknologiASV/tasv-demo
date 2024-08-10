@@ -2,7 +2,7 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1 class="m-0">Uniqlo Store Count Main Page</h1>
+          <h1 class="m-0">Store Count Main Page</h1>
         </div><!-- /.col -->
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
@@ -49,7 +49,7 @@
       <div class="row">
         <div class="col-md-6 col-sm-6 col-12">
           <div class="info-box">
-            <img src="images/1utama.png" width="90" height="100"/>
+            <!--img src="images/1utama.png" width="90" height="100"/-->
             <div class="info-box-content">
               <p style="margin-bottom: 0;font-size: 22px;"><b>OU</b></p>
               <div class="row">
@@ -72,7 +72,7 @@
   
         <div class="col-md-6 col-sm-6 col-12">
           <div class="info-box">
-            <img src="images/damansara.png" width="90" height="100"/>
+            <!--img src="images/damansara.png" width="90" height="100"/-->
             <div class="info-box-content">
               <p style="margin-bottom: 0;font-size: 22px;"><b>DAS</b></p>
               <div class="row">
@@ -163,7 +163,7 @@
           var obj = JSON.parse(data);
   
           if(obj.status === 'success'){
-            /*removeData(totalVisitorsChart);
+            /*removeDataU(totalVisitorsChart);
             addData(totalVisitorsChart, 'OU', obj.oneUtamaCount);
             addData(totalVisitorsChart, 'DAS', obj.damansaraCount);*/
             $('#salesInfo').html(obj.oneUtamaCount.toLocaleString('en-US'));
@@ -173,12 +173,12 @@
             $('#salesInfoPerc').html(parseFloat((obj.oneUtamaTranc/obj.oneUtamaCount) * 100).toFixed(2));
             $('#salesInfoPerc2').html(parseFloat((obj.damansaraTranc/obj.damansaraCount) * 100).toFixed(2));
   
-            removeData(barChart);
-            removeData(lineChart);
+            removeDataU(barChart);
+            removeDataU(lineChart);
   
             for(var i=0; i<obj.message.length; i++){
-              addLineChartData(barChart, obj.message[i].Date, obj.message[i].uniqloOU, obj.message[i].uniqloDAS);
-              addLineChartData(lineChart, obj.message[i].Date, obj.message[i].transOU, obj.message[i].transDAS);
+              addLineChartDataU(barChart, obj.message[i].Date, obj.message[i].uniqloOU, obj.message[i].uniqloDAS);
+              addLineChartDataU(lineChart, obj.message[i].Date, obj.message[i].transOU, obj.message[i].transDAS);
             }
           }
           else if(obj.status === 'failed'){
@@ -216,7 +216,7 @@
       labels  : ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
       datasets: [
         {
-          label               : 'Uniqlo OU',
+          label               : 'OU',
           backgroundColor     : 'rgba(244, 165, 34, 0.9)',
           borderColor         : 'rgba(244, 165, 34, 0.8)',
           pointRadius         : false,
@@ -227,7 +227,7 @@
           data                : [0, 0, 0, 0, 0, 0, 0]
         },
         {
-          label               : 'Uniqlo DAS',
+          label               : 'DAS',
           backgroundColor     : 'rgba(96, 146, 205, 1)',
           borderColor         : 'rgba(96, 146, 205, 1)',
           pointRadius         : false,
@@ -249,7 +249,7 @@
       labels  : ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
       datasets: [
       {
-          label               : 'Uniqlo OU',
+          label               : ' OU',
           backgroundColor     : 'rgba(244, 165, 34, 0.9)',
           borderColor         : 'rgba(244, 165, 34, 0.8)',
           pointRadius          : false,
@@ -261,7 +261,7 @@
           data                : [0, 0, 0, 0, 0, 0, 0]
         },
         {
-          label               : 'Uniqlo DAS',
+          label               : ' DAS',
           backgroundColor     : 'rgba(96, 146, 205, 1)',
           borderColor         : 'rgba(96, 146, 205, 1)',
           pointRadius         : false,
@@ -281,7 +281,7 @@
       var obj = JSON.parse(data);
   
       if(obj.status === 'success'){
-        /*removeData(totalVisitorsChart);
+        /*removeDataU(totalVisitorsChart);
         addData(totalVisitorsChart, '1 Utama', obj.oneUtamaCount);
         addData(totalVisitorsChart, 'Damansara', obj.damansaraCount);*/
         $('#salesInfo').html(obj.oneUtamaCount.toLocaleString('en-US'));
@@ -291,12 +291,12 @@
         $('#salesInfoPerc').html(parseFloat((obj.oneUtamaTranc/obj.oneUtamaCount) * 100).toFixed(2));
         $('#salesInfoPerc2').html(parseFloat((obj.damansaraTranc/obj.damansaraCount) * 100).toFixed(2));
   
-        removeData(barChart);
-        removeData(lineChart);
+        removeDataU(barChart);
+        removeDataU(lineChart);
   
         for(var i=0; i<obj.message.length; i++){
-          addLineChartData(barChart, obj.message[i].Date, obj.message[i].uniqloOU, obj.message[i].uniqloDAS);
-          addLineChartData(lineChart, obj.message[i].Date, obj.message[i].transOU, obj.message[i].transDAS);
+          addLineChartDataU(barChart, obj.message[i].Date, obj.message[i].uniqloOU, obj.message[i].uniqloDAS);
+          addLineChartDataU(lineChart, obj.message[i].Date, obj.message[i].transOU, obj.message[i].transDAS);
         }
       }
       else if(obj.status === 'failed'){

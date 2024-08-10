@@ -154,10 +154,10 @@ $(function () {
         var obj = JSON.parse(data);
 
         if(obj.status === 'success'){
-          removeData(stackChart2);
+          removeDataM(stackChart2);
 
           for(var i=0; i<obj.message.length; i++){
-            addBarChartData(stackChart2, obj.message[i].Date, obj.message[i].ent1Count);
+            addBarChartDataM(stackChart2, obj.message[i].Date, obj.message[i].ent1Count);
           }
         }
         else if(obj.status === 'failed'){
@@ -246,10 +246,10 @@ $(function () {
       var obj = JSON.parse(data);
 
       if(obj.status === 'success'){
-        removeData(stackChart);
+        removeDataM(stackChart);
 
         for(var i=0; i<obj.message.length; i++){
-          addBarChartData(stackChart, obj.message[i].Date, obj.message[i].ent1Count);
+          addBarChartDataM(stackChart, obj.message[i].Date, obj.message[i].ent1Count);
         }
       }
       else if(obj.status === 'failed'){
@@ -265,10 +265,10 @@ $(function () {
     var obj = JSON.parse(data);
 
     if(obj.status === 'success'){
-      removeData(stackChart2);
+      removeDataM(stackChart2);
 
       for(var i=0; i<obj.message.length; i++){
-        addBarChartData(stackChart2, obj.message[i].Date, obj.message[i].ent1Count);
+        addBarChartDataM(stackChart2, obj.message[i].Date, obj.message[i].ent1Count);
       }
     }
     else if(obj.status === 'failed'){
@@ -283,10 +283,10 @@ $(function () {
     var obj = JSON.parse(data);
 
     if(obj.status === 'success'){
-      removeData(stackChart);
+      removeDataM(stackChart);
 
       for(var i=0; i<obj.message.length; i++){
-        addBarChartData(stackChart, obj.message[i].Date, obj.message[i].ent1Count);
+        addBarChartDataM(stackChart, obj.message[i].Date, obj.message[i].ent1Count);
       }
     }
     else if(obj.status === 'failed'){

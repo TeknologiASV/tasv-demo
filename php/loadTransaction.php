@@ -9,7 +9,7 @@ $rowperpage = $_POST['length']; // Rows display per page
 $columnIndex = $_POST['order'][0]['column']; // Column index
 $columnName = $_POST['columns'][$columnIndex]['data']; // Column name
 $columnSortOrder = $_POST['order'][0]['dir']; // asc or desc
-$searchValue = mysqli_real_escape_string($db,$_POST['search']['value']); // Search value
+$searchValue = mysqli_real_escape_string($dbU,$_POST['search']['value']); // Search value
 
 ## Search 
 $searchQuery = " ";
@@ -18,18 +18,18 @@ $searchQuery = " ";
 }*/
 
 ## Total number of records without filtering
-$sel = mysqli_query($db,"select count(*) as allcount from transaction");
+$sel = mysqli_query($dbU,"select count(*) as allcount from transaction");
 $records = mysqli_fetch_assoc($sel);
 $totalRecords = $records['allcount'];
 
 ## Total number of record with filtering
-$sel = mysqli_query($db,"select count(*) as allcount from transaction".$searchQuery);
+$sel = mysqli_query($dbU,"select count(*) as allcount from transaction".$searchQuery);
 $records = mysqli_fetch_assoc($sel);
 $totalRecordwithFilter = $records['allcount'];
 
 ## Fetch records
 $empQuery = "select * from transaction".$searchQuery." order by ".$columnName." ".$columnSortOrder." limit ".$row.",".$rowperpage;
-$empRecords = mysqli_query($db, $empQuery);
+$empRecords = mysqli_query($dbU, $empQuery);
 $data = array();
 
 while($row = mysqli_fetch_assoc($empRecords)) {
@@ -38,7 +38,7 @@ while($row = mysqli_fetch_assoc($empRecords)) {
 
   if($row['Outlet'] == "OU"){
     $empQuery2 = "SELECT * FROM uniqlo_1u WHERE Date>='".substr($row['Date'], 0, 10)." 00:00:00' AND Date<='".substr($row['Date'], 0, 10)." 23:59:59'";
-    $empRecords2 = mysqli_query($db, $empQuery2);
+    $empRecords2 = mysqli_query($dbU, $empQuery2);
 
     while($row2 = mysqli_fetch_assoc($empRecords2)) {
       if($row2['Door'] != null && $row2['Count'] != null && $row2['Door'] == 'in'){

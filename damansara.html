@@ -7,7 +7,7 @@
       <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">
           <li class="breadcrumb-item"><a href="#">Home</a></li>
-          <li class="breadcrumb-item active">Uniqlo DAS</li>
+          <li class="breadcrumb-item active">Zone Activity</li>
         </ol>
       </div><!-- /.col -->
     </div><!-- /.row -->
@@ -372,28 +372,28 @@ $(function () {
           groundTotalCount = obj.groundTotalCount;
           InTotal = obj.groundInCount;
 
-          removeData(totalVisitorsChart);
-          addData(totalVisitorsChart, 'M1', obj.totalL1);
-          addData(totalVisitorsChart, 'M2', obj.totalL2);
-          addData(totalVisitorsChart, 'M3', obj.totalL3);
-          addData(totalVisitorsChart, 'M4', obj.totalL4);
-          addData(totalVisitorsChart, 'W1', obj.totalR1);
-          addData(totalVisitorsChart, 'W2', obj.totalR2);
-          addData(totalVisitorsChart, 'W3', obj.totalR3);
-          addData(totalVisitorsChart, 'W4', obj.totalR4);
-          addData(totalVisitorsChart, 'MVP + WVP', obj.totalC);
+          removeDataU(totalVisitorsChart);
+          addDataU(totalVisitorsChart, 'M1', obj.totalL1);
+          addDataU(totalVisitorsChart, 'M2', obj.totalL2);
+          addDataU(totalVisitorsChart, 'M3', obj.totalL3);
+          addDataU(totalVisitorsChart, 'M4', obj.totalL4);
+          addDataU(totalVisitorsChart, 'W1', obj.totalR1);
+          addDataU(totalVisitorsChart, 'W2', obj.totalR2);
+          addDataU(totalVisitorsChart, 'W3', obj.totalR3);
+          addDataU(totalVisitorsChart, 'W4', obj.totalR4);
+          addDataU(totalVisitorsChart, 'MVP + WVP', obj.totalC);
 
-          /*removeData(passedInGroundPie);
-          addData(passedInGroundPie, 'Passing By', obj.groundPassingCount);
-          addData(passedInGroundPie, 'In', obj.groundInCount);*/
+          /*removeDataU(passedInGroundPie);
+          addDataU(passedInGroundPie, 'Passing By', obj.groundPassingCount);
+          addDataU(passedInGroundPie, 'In', obj.groundInCount);*/
 
-          removeData(barChart);
-          removeData(stackChart);
+          removeDataU(barChart);
+          removeDataU(stackChart);
 
           for(var i=0; i<obj.message.length; i++){
-            addLineChartData(barChart, obj.message[i].Date, obj.message[i].LeftDoorCount, obj.message[i].RightDoorCount);
-            addStackChartData(stackChart, obj.message[i].Date, obj.message[i].TotalL1, obj.message[i].TotalL2, obj.message[i].TotalL3, obj.message[i].TotalL4, obj.message[i].TotalR1, obj.message[i].TotalR2, obj.message[i].TotalR3, obj.message[i].TotalR4, obj.message[i].TotalC);
-            //addLineChartData(lineChart, obj.message[i].Date, obj.message[i].InStoreGroundCount, obj.message[i].PassingGroundCount);
+            addLineChartDataU(barChart, obj.message[i].Date, obj.message[i].LeftDoorCount, obj.message[i].RightDoorCount);
+            addStackChartDataU(stackChart, obj.message[i].Date, obj.message[i].TotalL1, obj.message[i].TotalL2, obj.message[i].TotalL3, obj.message[i].TotalL4, obj.message[i].TotalR1, obj.message[i].TotalR2, obj.message[i].TotalR3, obj.message[i].TotalR4, obj.message[i].TotalC);
+            //addLineChartDataU(lineChart, obj.message[i].Date, obj.message[i].InStoreGroundCount, obj.message[i].PassingGroundCount);
           }
 
           heatmap.setData({
@@ -1078,28 +1078,28 @@ $(function () {
         var obj = JSON.parse(data);
 
         if(obj.status === 'success'){
-          removeData(totalVisitorsChart2);
-          addData(totalVisitorsChart2, 'M1', obj.totalL1);
-          addData(totalVisitorsChart2, 'M2', obj.totalL2);
-          addData(totalVisitorsChart2, 'M3', obj.totalL3);
-          addData(totalVisitorsChart2, 'M4', obj.totalL4);
-          addData(totalVisitorsChart2, 'W1', obj.totalR1);
-          addData(totalVisitorsChart2, 'W2', obj.totalR2);
-          addData(totalVisitorsChart2, 'W3', obj.totalR3);
-          addData(totalVisitorsChart2, 'W4', obj.totalR4);
-          addData(totalVisitorsChart2, 'MVP + WVP', obj.totalC);
+          removeDataU(totalVisitorsChart2);
+          addDataU(totalVisitorsChart2, 'M1', obj.totalL1);
+          addDataU(totalVisitorsChart2, 'M2', obj.totalL2);
+          addDataU(totalVisitorsChart2, 'M3', obj.totalL3);
+          addDataU(totalVisitorsChart2, 'M4', obj.totalL4);
+          addDataU(totalVisitorsChart2, 'W1', obj.totalR1);
+          addDataU(totalVisitorsChart2, 'W2', obj.totalR2);
+          addDataU(totalVisitorsChart2, 'W3', obj.totalR3);
+          addDataU(totalVisitorsChart2, 'W4', obj.totalR4);
+          addDataU(totalVisitorsChart2, 'MVP + WVP', obj.totalC);
 
-          removeData(passedInGroundPie2);
-          addData(passedInGroundPie2, 'Male Zone', (obj.totalL1 + obj.totalL2 + obj.totalL3 + obj.totalL4));
-          addData(passedInGroundPie2, 'Female Zone', (obj.totalR1 + obj.totalR2 + obj.totalR3 + obj.totalR4));
-          addData(passedInGroundPie2, 'MVP + WVP', obj.totalC);
+          removeDataU(passedInGroundPie2);
+          addDataU(passedInGroundPie2, 'Male Zone', (obj.totalL1 + obj.totalL2 + obj.totalL3 + obj.totalL4));
+          addDataU(passedInGroundPie2, 'Female Zone', (obj.totalR1 + obj.totalR2 + obj.totalR3 + obj.totalR4));
+          addDataU(passedInGroundPie2, 'MVP + WVP', obj.totalC);
 
-          removeData(barChart2);
-          removeData(stackChart2);
+          removeDataU(barChart2);
+          removeDataU(stackChart2);
 
           for(var i=0; i<obj.message.length; i++){
-            addLineChartData(barChart2, obj.message[i].Date, obj.message[i].LeftDoorCount, obj.message[i].RightDoorCount);
-            addStackChartData(stackChart2, obj.message[i].Date, obj.message[i].TotalL1, obj.message[i].TotalL2, obj.message[i].TotalL3, obj.message[i].TotalL4, obj.message[i].TotalR1, obj.message[i].TotalR2, obj.message[i].TotalR3, obj.message[i].TotalR4, obj.message[i].TotalC);
+            addLineChartDataU(barChart2, obj.message[i].Date, obj.message[i].LeftDoorCount, obj.message[i].RightDoorCount);
+            addStackChartDataU(stackChart2, obj.message[i].Date, obj.message[i].TotalL1, obj.message[i].TotalL2, obj.message[i].TotalL3, obj.message[i].TotalL4, obj.message[i].TotalR1, obj.message[i].TotalR2, obj.message[i].TotalR3, obj.message[i].TotalR4, obj.message[i].TotalC);
           }
 
           /*heatmap2.setData({
@@ -1201,28 +1201,28 @@ $(function () {
       groundTotalCount = obj.groundTotalCount;
       InTotal = obj.groundInCount;
 
-      removeData(totalVisitorsChart);
-      addData(totalVisitorsChart, 'M1', obj.totalL1);
-      addData(totalVisitorsChart, 'M2', obj.totalL2);
-      addData(totalVisitorsChart, 'M3', obj.totalL3);
-      addData(totalVisitorsChart, 'M4', obj.totalL4);
-      addData(totalVisitorsChart, 'W1', obj.totalR1);
-      addData(totalVisitorsChart, 'W2', obj.totalR2);
-      addData(totalVisitorsChart, 'W3', obj.totalR3);
-      addData(totalVisitorsChart, 'W4', obj.totalR4);
-      addData(totalVisitorsChart, 'MVP + WVP', obj.totalC);
+      removeDataU(totalVisitorsChart);
+      addDataU(totalVisitorsChart, 'M1', obj.totalL1);
+      addDataU(totalVisitorsChart, 'M2', obj.totalL2);
+      addDataU(totalVisitorsChart, 'M3', obj.totalL3);
+      addDataU(totalVisitorsChart, 'M4', obj.totalL4);
+      addDataU(totalVisitorsChart, 'W1', obj.totalR1);
+      addDataU(totalVisitorsChart, 'W2', obj.totalR2);
+      addDataU(totalVisitorsChart, 'W3', obj.totalR3);
+      addDataU(totalVisitorsChart, 'W4', obj.totalR4);
+      addDataU(totalVisitorsChart, 'MVP + WVP', obj.totalC);
 
-      removeData(passedInGroundPie);
-      addData(passedInGroundPie, 'Male Zone', (obj.totalL1 + obj.totalL2 + obj.totalL3 + obj.totalL4));
-      addData(passedInGroundPie, 'Female Zone', (obj.totalR1 + obj.totalR2 + obj.totalR3 + obj.totalR4));
-      addData(passedInGroundPie, 'MVP + WVP', obj.totalC);
+      removeDataU(passedInGroundPie);
+      addDataU(passedInGroundPie, 'Male Zone', (obj.totalL1 + obj.totalL2 + obj.totalL3 + obj.totalL4));
+      addDataU(passedInGroundPie, 'Female Zone', (obj.totalR1 + obj.totalR2 + obj.totalR3 + obj.totalR4));
+      addDataU(passedInGroundPie, 'MVP + WVP', obj.totalC);
 
-      removeData(barChart);
-      removeData(stackChart);
+      removeDataU(barChart);
+      removeDataU(stackChart);
 
       for(var i=0; i<obj.message.length; i++){
-        addLineChartData(barChart, obj.message[i].Date, obj.message[i].LeftDoorCount, obj.message[i].RightDoorCount);
-        addStackChartData(stackChart, obj.message[i].Date, obj.message[i].TotalL1, obj.message[i].TotalL2, obj.message[i].TotalL3, obj.message[i].TotalL4, obj.message[i].TotalR1, obj.message[i].TotalR2, obj.message[i].TotalR3, obj.message[i].TotalR4, obj.message[i].TotalC);
+        addLineChartDataU(barChart, obj.message[i].Date, obj.message[i].LeftDoorCount, obj.message[i].RightDoorCount);
+        addStackChartDataU(stackChart, obj.message[i].Date, obj.message[i].TotalL1, obj.message[i].TotalL2, obj.message[i].TotalL3, obj.message[i].TotalL4, obj.message[i].TotalR1, obj.message[i].TotalR2, obj.message[i].TotalR3, obj.message[i].TotalR4, obj.message[i].TotalC);
       }
 
       heatmap.setData({
@@ -1303,28 +1303,28 @@ $(function () {
       var obj = JSON.parse(data);
 
       if(obj.status === 'success'){
-        removeData(totalVisitorsChart2);
-        addData(totalVisitorsChart2, 'M1', obj.totalL1);
-        addData(totalVisitorsChart2, 'M2', obj.totalL2);
-        addData(totalVisitorsChart2, 'M3', obj.totalL3);
-        addData(totalVisitorsChart2, 'M4', obj.totalL4);
-        addData(totalVisitorsChart2, 'W1', obj.totalR1);
-        addData(totalVisitorsChart2, 'W2', obj.totalR2);
-        addData(totalVisitorsChart2, 'W3', obj.totalR3);
-        addData(totalVisitorsChart2, 'W4', obj.totalR4);
-        addData(totalVisitorsChart2, 'MVP + WVP', obj.totalC);
+        removeDataU(totalVisitorsChart2);
+        addDataU(totalVisitorsChart2, 'M1', obj.totalL1);
+        addDataU(totalVisitorsChart2, 'M2', obj.totalL2);
+        addDataU(totalVisitorsChart2, 'M3', obj.totalL3);
+        addDataU(totalVisitorsChart2, 'M4', obj.totalL4);
+        addDataU(totalVisitorsChart2, 'W1', obj.totalR1);
+        addDataU(totalVisitorsChart2, 'W2', obj.totalR2);
+        addDataU(totalVisitorsChart2, 'W3', obj.totalR3);
+        addDataU(totalVisitorsChart2, 'W4', obj.totalR4);
+        addDataU(totalVisitorsChart2, 'MVP + WVP', obj.totalC);
 
-        removeData(passedInGroundPie2);
-        addData(passedInGroundPie2, 'Male Zone', (obj.totalL1 + obj.totalL2 + obj.totalL3 + obj.totalL4));
-        addData(passedInGroundPie2, 'Female Zone', (obj.totalR1 + obj.totalR2 + obj.totalR3 + obj.totalR4));
-        addData(passedInGroundPie2, 'MVP + WVP', obj.totalC);
+        removeDataU(passedInGroundPie2);
+        addDataU(passedInGroundPie2, 'Male Zone', (obj.totalL1 + obj.totalL2 + obj.totalL3 + obj.totalL4));
+        addDataU(passedInGroundPie2, 'Female Zone', (obj.totalR1 + obj.totalR2 + obj.totalR3 + obj.totalR4));
+        addDataU(passedInGroundPie2, 'MVP + WVP', obj.totalC);
 
-        removeData(barChart2);
-        removeData(stackChart2);
+        removeDataU(barChart2);
+        removeDataU(stackChart2);
 
         for(var i=0; i<obj.message.length; i++){
-          addLineChartData(barChart2, obj.message[i].Date, obj.message[i].LeftDoorCount, obj.message[i].RightDoorCount);
-          addStackChartData(stackChart2, obj.message[i].Date, obj.message[i].TotalL1, obj.message[i].TotalL2, obj.message[i].TotalL3, obj.message[i].TotalL4, obj.message[i].TotalR1, obj.message[i].TotalR2, obj.message[i].TotalR3, obj.message[i].TotalR4, obj.message[i].TotalC);
+          addLineChartDataU(barChart2, obj.message[i].Date, obj.message[i].LeftDoorCount, obj.message[i].RightDoorCount);
+          addStackChartDataU(stackChart2, obj.message[i].Date, obj.message[i].TotalL1, obj.message[i].TotalL2, obj.message[i].TotalL3, obj.message[i].TotalL4, obj.message[i].TotalR1, obj.message[i].TotalR2, obj.message[i].TotalR3, obj.message[i].TotalR4, obj.message[i].TotalC);
         }
 
         /*heatmap2.setData({
