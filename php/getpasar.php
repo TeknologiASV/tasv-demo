@@ -1,5 +1,6 @@
 <?php
-require_once "db_connect.php";
+// Old DB logic disabled while this endpoint returns random data.
+// require_once "db_connect.php";
 
 session_start();
 
@@ -8,6 +9,29 @@ if(isset($_POST['startDate'], $_POST['endDate'])){
     $endDate = filter_input(INPUT_POST, 'endDate', FILTER_SANITIZE_STRING);
     $location = filter_input(INPUT_POST, 'location', FILTER_SANITIZE_STRING);
 
+    $message = array();
+    $periodStart = DateTime::createFromFormat('Y-m-d', substr($startDate, 0, 10));
+    $periodEnd = DateTime::createFromFormat('Y-m-d', substr($endDate, 0, 10));
+
+    if ($periodStart && $periodEnd) {
+        $periodEnd->modify('+1 day');
+        $period = new DatePeriod($periodStart, new DateInterval('P1D'), $periodEnd);
+
+        foreach ($period as $date) {
+            $message[] = array(
+                'Date' => $date->format('Y-m-d'),
+                'ent1Count' => mt_rand(80, 450)
+            );
+        }
+    }
+
+    echo json_encode(
+        array(
+            "status" => "success",
+            "message" => $message
+        ));
+
+    /*
     if ($select_stmt = $dbM->prepare("SELECT * FROM Melaka_traffic WHERE Date>=? AND Date<=? ORDER BY Date")) {
         $select_stmt->bind_param('ss', $startDate, $endDate);
         
@@ -58,6 +82,7 @@ if(isset($_POST['startDate'], $_POST['endDate'])){
                 ));   
         }
     }
+    */
 }
 else{
     echo json_encode(

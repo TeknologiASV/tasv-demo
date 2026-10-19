@@ -1,5 +1,6 @@
 <?php
-require_once "db_connect.php";
+// Old DB logic disabled while this endpoint returns random data.
+// require_once "db_connect.php";
 
 session_start();
 
@@ -9,6 +10,51 @@ if(isset($_POST['startDate'], $_POST['endDate'])){
     $location = filter_input(INPUT_POST, 'location', FILTER_SANITIZE_STRING);
     $door = 'in';
 
+    $oneUtamaCount = 0;
+    $damansaraCount = 0;
+    $oneUtamaTranc = 0;
+    $damansaraTranc = 0;
+    $message = array();
+
+    $periodStart = DateTime::createFromFormat('Y-m-d', substr($startDate, 0, 10));
+    $periodEnd = DateTime::createFromFormat('Y-m-d', substr($endDate, 0, 10));
+
+    if ($periodStart && $periodEnd) {
+        $periodEnd->modify('+1 day');
+        $period = new DatePeriod($periodStart, new DateInterval('P1D'), $periodEnd);
+
+        foreach ($period as $date) {
+            $uniqloOU = mt_rand(100, 500);
+            $uniqloDAS = mt_rand(80, 450);
+            $transOU = mt_rand(20, 120);
+            $transDAS = mt_rand(15, 100);
+
+            $message[] = array(
+                'Date' => $date->format('Y-m-d'),
+                'uniqloOU' => $uniqloOU,
+                'uniqloDAS' => $uniqloDAS,
+                'transOU' => $transOU,
+                'transDAS' => $transDAS
+            );
+
+            $oneUtamaCount += $uniqloOU;
+            $damansaraCount += $uniqloDAS;
+            $oneUtamaTranc += $transOU;
+            $damansaraTranc += $transDAS;
+        }
+    }
+
+    echo json_encode(
+        array(
+            "status" => "success",
+            "message" => $message,
+            "oneUtamaCount" => $oneUtamaCount,
+            "damansaraCount" => $damansaraCount,
+            "oneUtamaTranc" => $oneUtamaTranc,
+            "damansaraTranc" => $damansaraTranc,
+        ));
+
+    /*
     if ($select_stmt = $dbU->prepare("SELECT * FROM uniqlo_1u WHERE Door=? AND Date>=? AND Date<=? ORDER BY Date")) {
         $select_stmt->bind_param('sss', $door, $startDate, $endDate);
         
@@ -137,6 +183,7 @@ if(isset($_POST['startDate'], $_POST['endDate'])){
             )
         ); 
     }
+    */
 }
 else{
     echo json_encode(

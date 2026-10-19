@@ -1,5 +1,6 @@
 <?php
-require_once "db_connect.php";
+// Old DB logic disabled while this endpoint returns random data.
+// require_once "db_connect.php";
 
 session_start();
 
@@ -23,6 +24,58 @@ if(isset($_POST['startDate'], $_POST['endDate'])){
     $endDate = filter_input(INPUT_POST, 'endDate', FILTER_SANITIZE_STRING);
     $location = filter_input(INPUT_POST, 'location', FILTER_SANITIZE_STRING);
 
+    $message = array();
+    $ent1Count = 0;
+    $ent2Count = 0;
+    $ent3Count = 0;
+    $ent4Count = 0;
+    $ent5Count = 0;
+    $ent6Count = 0;
+    $dateLabel = substr($startDate, 0, 10);
+
+    for ($hour = 0; $hour < 24; $hour++) {
+        $hourEnt1 = mt_rand(5, 50);
+        $hourEnt2 = mt_rand(2, 30);
+        $hourEnt3 = mt_rand(5, 45);
+        $hourEnt4 = mt_rand(2, 30);
+        $hourEnt5 = mt_rand(3, 35);
+        $hourEnt6 = mt_rand(5, 45);
+
+        $message[] = array(
+            'Date' => $dateLabel . ' ' . sprintf('%02d:00', $hour),
+            'Date2' => $dateLabel,
+            'ent1Count' => $hourEnt1,
+            'ent2Count' => $hourEnt2,
+            'ent3Count' => $hourEnt3,
+            'ent4Count' => $hourEnt4,
+            'ent5Count' => $hourEnt5,
+            'ent6Count' => $hourEnt6,
+            'veh2Count' => mt_rand(0, 8),
+            'veh7Count' => mt_rand(0, 10),
+            'total' => $hourEnt1 + $hourEnt2 + $hourEnt3 + $hourEnt4 + $hourEnt5 + $hourEnt6
+        );
+
+        $ent1Count += $hourEnt1;
+        $ent2Count += $hourEnt2;
+        $ent3Count += $hourEnt3;
+        $ent4Count += $hourEnt4;
+        $ent5Count += $hourEnt5;
+        $ent6Count += $hourEnt6;
+    }
+
+    echo json_encode(
+        array(
+            "status" => "success",
+            "message" => $message,
+            "ent1Count" => $ent1Count,
+            "ent2Count" => $ent2Count,
+            "ent3Count" => $ent3Count,
+            "ent4Count" => $ent4Count,
+            "ent5Count" => $ent5Count,
+            "ent6Count" => $ent6Count,
+        ));
+
+    /*
     if ($select_stmt = $dbM->prepare("SELECT * FROM Melaka_traffic WHERE Date>=? AND Date<=? ORDER BY Date")) {
         $select_stmt->bind_param('ss', $startDate, $endDate);
         
@@ -209,6 +262,7 @@ if(isset($_POST['startDate'], $_POST['endDate'])){
                 ));   
         }
     }
+    */
 }
 else{
     echo json_encode(

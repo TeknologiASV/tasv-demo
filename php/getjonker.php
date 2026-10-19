@@ -1,5 +1,6 @@
 <?php
-require_once "db_connect.php";
+// Old DB logic disabled while this endpoint returns random data.
+// require_once "db_connect.php";
 
 session_start();
 
@@ -23,6 +24,64 @@ if(isset($_POST['startDate'], $_POST['endDate'])){
     $endDate = filter_input(INPUT_POST, 'endDate', FILTER_SANITIZE_STRING);
     $location = filter_input(INPUT_POST, 'location', FILTER_SANITIZE_STRING);
 
+    $message = array();
+    $ent1Count = 0;
+    $ent2Count = 0;
+    $ent3Count = 0;
+    $ent4Count = 0;
+    $ent5Count = 0;
+    $ent6Count = 0;
+
+    $periodStart = DateTime::createFromFormat('Y-m-d', substr($startDate, 0, 10));
+    $periodEnd = DateTime::createFromFormat('Y-m-d', substr($endDate, 0, 10));
+
+    if ($periodStart && $periodEnd) {
+        $periodEnd->modify('+1 day');
+        $period = new DatePeriod($periodStart, new DateInterval('P1D'), $periodEnd);
+
+        foreach ($period as $date) {
+            $dayEnt1 = mt_rand(80, 300);
+            $dayEnt2 = mt_rand(30, 160);
+            $dayEnt3 = mt_rand(70, 280);
+            $dayEnt4 = mt_rand(30, 180);
+            $dayEnt5 = mt_rand(50, 220);
+            $dayEnt6 = mt_rand(70, 260);
+
+            $message[] = array(
+                'Date' => $date->format('Y-m-d'),
+                'ent1Count' => $dayEnt1,
+                'ent2Count' => $dayEnt2,
+                'ent3Count' => $dayEnt3,
+                'ent4Count' => $dayEnt4,
+                'ent5Count' => $dayEnt5,
+                'ent6Count' => $dayEnt6,
+                'veh2Count' => mt_rand(0, 30),
+                'veh7Count' => mt_rand(0, 40),
+                'total' => $dayEnt1 + $dayEnt2 + $dayEnt3 + $dayEnt4 + $dayEnt5 + $dayEnt6
+            );
+
+            $ent1Count += $dayEnt1;
+            $ent2Count += $dayEnt2;
+            $ent3Count += $dayEnt3;
+            $ent4Count += $dayEnt4;
+            $ent5Count += $dayEnt5;
+            $ent6Count += $dayEnt6;
+        }
+    }
+
+    echo json_encode(
+        array(
+            "status" => "success",
+            "message" => $message,
+            "ent1Count" => $ent1Count,
+            "ent2Count" => $ent2Count,
+            "ent3Count" => $ent3Count,
+            "ent4Count" => $ent4Count,
+            "ent5Count" => $ent5Count,
+            "ent6Count" => $ent6Count
+        ));
+
+    /*
     if ($select_stmt = $dbM->prepare("SELECT * FROM Melaka_traffic WHERE Date>=? AND Date<=? ORDER BY Date")) {
         $select_stmt->bind_param('ss', $startDate, $endDate);
         
@@ -208,6 +267,7 @@ if(isset($_POST['startDate'], $_POST['endDate'])){
                 ));   
         }
     }
+    */
 }
 else{
     echo json_encode(

@@ -1,5 +1,6 @@
 <?php
-require_once "db_connect.php";
+// Old DB logic disabled while this endpoint returns random data.
+// require_once "db_connect.php";
 
 session_start();
 
@@ -8,6 +9,51 @@ if(isset($_POST['startDate'], $_POST['endDate'])){
     $endDate = filter_input(INPUT_POST, 'endDate', FILTER_SANITIZE_STRING);
     $location = filter_input(INPUT_POST, 'location', FILTER_SANITIZE_STRING);
 
+    $message = array();
+    $groundTotalCount = 0;
+    $groundPassingCount = 0;
+    $groundInCount = 0;
+    $lvl1TotalCount = 0;
+    $lvl1PassingCount = 0;
+    $lvl1InCount = 0;
+
+    for ($hour = 0; $hour < 24; $hour++) {
+        $groundIn = mt_rand(5, 60);
+        $groundPassing = mt_rand(20, 120);
+        $lvl1In = mt_rand(5, 50);
+        $lvl1Passing = mt_rand(15, 100);
+
+        $message[] = array(
+            'Date' => sprintf('%02d:00', $hour),
+            'TotalGroundCount' => $groundIn,
+            'InStoreGroundCount' => $groundIn,
+            'PassingGroundCount' => $groundPassing,
+            'TotalLvl1Count' => $lvl1In,
+            'InStoreLvl1Count' => $lvl1In,
+            'PassingLvl1Count' => $lvl1Passing
+        );
+
+        $groundTotalCount += $groundIn;
+        $groundInCount += $groundIn;
+        $groundPassingCount += $groundPassing;
+        $lvl1TotalCount += $lvl1In;
+        $lvl1InCount += $lvl1In;
+        $lvl1PassingCount += $lvl1Passing;
+    }
+
+    echo json_encode(
+        array(
+            "status" => "success",
+            "message" => $message,
+            "groundTotalCount" => $groundTotalCount,
+            "groundInCount" => $groundInCount,
+            "groundPassingCount" => $groundPassingCount,
+            "lvl1TotalCount" => $lvl1TotalCount,
+            "lvl1InCount" => $lvl1InCount,
+            "lvl1PassingCount" => $lvl1PassingCount
+        ));
+
+    /*
     if ($select_stmt = $dbU->prepare("SELECT * FROM uniqlo_1u WHERE Date>=? AND Date<=? ORDER BY Date")) {
         $select_stmt->bind_param('ss', $startDate, $endDate);
         
@@ -90,6 +136,7 @@ if(isset($_POST['startDate'], $_POST['endDate'])){
                 ));   
         }
     }
+    */
 }
 else{
     echo json_encode(

@@ -1,5 +1,6 @@
 <?php
-require_once "db_connect.php";
+// Old DB logic disabled while this endpoint returns random data.
+// require_once "db_connect.php";
 
 session_start();
 
@@ -8,6 +9,22 @@ if(isset($_POST['startDate'], $_POST['endDate'])){
     $endDate = filter_input(INPUT_POST, 'endDate', FILTER_SANITIZE_STRING);
     $location = filter_input(INPUT_POST, 'location', FILTER_SANITIZE_STRING);
 
+    $message = array();
+
+    for ($hour = 0; $hour < 24; $hour++) {
+        $message[] = array(
+            'Date' => sprintf('%02d:00', $hour),
+            'ent1Count' => mt_rand(5, 60)
+        );
+    }
+
+    echo json_encode(
+        array(
+            "status" => "success",
+            "message" => $message
+        ));
+
+    /*
     if ($select_stmt = $dbM->prepare("SELECT * FROM Melaka_traffic WHERE Date>=? AND Date<=? ORDER BY Date")) {
         $select_stmt->bind_param('ss', $startDate, $endDate);
         
@@ -52,6 +69,7 @@ if(isset($_POST['startDate'], $_POST['endDate'])){
                 ));   
         }
     }
+    */
 }
 else{
     echo json_encode(

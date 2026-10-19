@@ -1,5 +1,6 @@
 <?php
-require_once "db_connect.php";
+// Old DB logic disabled while this endpoint returns random data.
+// require_once "db_connect.php";
 
 session_start();
 
@@ -8,6 +9,86 @@ if(isset($_POST['startDate'], $_POST['endDate'])){
     $endDate = filter_input(INPUT_POST, 'endDate', FILTER_SANITIZE_STRING);
     $location = filter_input(INPUT_POST, 'location', FILTER_SANITIZE_STRING);
 
+    $message = array();
+    $groundTotalCount = 0;
+    $groundPassingCount = 0;
+    $groundInCount = 0;
+    $totalL1 = 0;
+    $totalL2 = 0;
+    $totalL3 = 0;
+    $totalL4 = 0;
+    $totalR1 = 0;
+    $totalR2 = 0;
+    $totalR3 = 0;
+    $totalR4 = 0;
+    $totalC = 0;
+
+    for ($hour = 0; $hour < 24; $hour++) {
+        $leftDoor = mt_rand(5, 40);
+        $rightDoor = mt_rand(5, 40);
+        $inStore = $leftDoor + $rightDoor;
+        $hourL1 = mt_rand(3, 30);
+        $hourL2 = mt_rand(3, 30);
+        $hourL3 = mt_rand(3, 30);
+        $hourL4 = mt_rand(3, 30);
+        $hourR1 = mt_rand(3, 30);
+        $hourR2 = mt_rand(3, 30);
+        $hourR3 = mt_rand(3, 30);
+        $hourR4 = mt_rand(3, 30);
+        $hourC = mt_rand(5, 60);
+        $passing = $hourL1 + $hourL2 + $hourL3 + $hourL4 + $hourR1 + $hourR2 + $hourR3 + $hourR4 + $hourC;
+
+        $message[] = array(
+            'Date' => sprintf('%02d:00', $hour),
+            'TotalGroundCount' => $inStore + $passing,
+            'InStoreGroundCount' => $inStore,
+            'LeftDoorCount' => $leftDoor,
+            'RightDoorCount' => $rightDoor,
+            'PassingGroundCount' => $passing,
+            'TotalL1' => $hourL1,
+            'TotalL2' => $hourL2,
+            'TotalL3' => $hourL3,
+            'TotalL4' => $hourL4,
+            'TotalR1' => $hourR1,
+            'TotalR2' => $hourR2,
+            'TotalR3' => $hourR3,
+            'TotalR4' => $hourR4,
+            'TotalC' => $hourC
+        );
+
+        $groundTotalCount += $inStore + $passing;
+        $groundInCount += $inStore;
+        $groundPassingCount += $passing;
+        $totalL1 += $hourL1;
+        $totalL2 += $hourL2;
+        $totalL3 += $hourL3;
+        $totalL4 += $hourL4;
+        $totalR1 += $hourR1;
+        $totalR2 += $hourR2;
+        $totalR3 += $hourR3;
+        $totalR4 += $hourR4;
+        $totalC += $hourC;
+    }
+
+    echo json_encode(
+        array(
+            "status" => "success",
+            "message" => $message,
+            "groundTotalCount" => $groundTotalCount,
+            "groundInCount" => $groundInCount,
+            "groundPassingCount" => $groundPassingCount,
+            "totalL1" => $totalL1,
+            "totalL2" => $totalL2,
+            "totalL3" => $totalL3,
+            "totalL4" => $totalL4,
+            "totalR1" => $totalR1,
+            "totalR2" => $totalR2,
+            "totalR3" => $totalR3,
+            "totalR4" => $totalR4,
+            "totalC" => $totalC
+        ));
+
+    /*
     if ($select_stmt = $dbU->prepare("SELECT * FROM uniqlo_DA WHERE Date>=? AND Date<=? ORDER BY Date")) {
         $select_stmt->bind_param('ss', $startDate, $endDate);
         
@@ -142,6 +223,7 @@ if(isset($_POST['startDate'], $_POST['endDate'])){
                 ));   
         }
     }
+    */
 }
 else{
     echo json_encode(
