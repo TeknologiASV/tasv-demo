@@ -1,6 +1,7 @@
 
 <?php
-require_once "db_connect.php";
+// Old DB logic disabled while this endpoint returns random data.
+// require_once "db_connect.php";
 
 session_start();
 
@@ -8,6 +9,45 @@ if(isset($_POST['startDate'], $_POST['endDate'])){
     $startDate = filter_input(INPUT_POST, 'startDate', FILTER_SANITIZE_STRING);
     $endDate = filter_input(INPUT_POST, 'endDate', FILTER_SANITIZE_STRING);
 
+    $message = array();
+    $harvester = array();
+    $harvester[] = array('zone' => 'C1', 'Har1' => mt_rand(5,6), 'Har2' => mt_rand(4,5));
+    $harvester[] = array('zone' => 'C2', 'Har1' => mt_rand(15,20), 'Har2' => mt_rand(15,25));
+    $harvester[] = array('zone' => 'C3', 'Har1' => mt_rand(15,25), 'Har2' => mt_rand(10,15));
+    $harvester[] = array('zone' => 'E2', 'Har1' => mt_rand(50,60), 'Har2' => mt_rand(55,65));
+    $harvester[] = array('zone' => 'E3', 'Har1' => mt_rand(55,65), 'Har2' => mt_rand(65,70));
+    $harvester[] = array('zone' => 'E5', 'Har1' => mt_rand(3,6), 'Har2' => mt_rand(1,3));
+    $dateLabel = substr($startDate, 0, 10);
+
+    for ($hour = 0; $hour < 24; $hour++) {
+        $e5Big = mt_rand(2, 30);
+        $e5Small = mt_rand(2, 25);
+
+        $message[] = array(
+            'Date' => sprintf('%02d:00', $hour),
+            'Date2' => $dateLabel,
+            'E1Count' => mt_rand(2, 30),
+            'E2Count' => mt_rand(10, 90),
+            'E3Count' => mt_rand(10, 100),
+            'E4Count' => mt_rand(2, 25),
+            'E5Count' => $e5Big + $e5Small,
+            'C1Count' => mt_rand(2, 30),
+            'C2Count' => mt_rand(5, 50),
+            'C3Count' => mt_rand(5, 45),
+            'E5Big' => $e5Big,
+            'E5Small' => $e5Small
+        );
+    }
+
+    echo json_encode(
+        array(
+            "status" => "success",
+            "message" => $message,
+            "harvester" => $harvester,
+        ));
+
+    // Old DB logic preserved below but disabled.
+    if (false) {
     if ($select_stmt = $dbF->prepare("SELECT * FROM felda_table2 WHERE Rec_time>=? AND Rec_time<=? ORDER BY Rec_time")) {
         $select_stmt->bind_param('ss', $startDate, $endDate);
         
@@ -296,6 +336,7 @@ if(isset($_POST['startDate'], $_POST['endDate'])){
                 "message" => "Failed to prepare query for Felda"
             )
         ); 
+    }
     }
 }
 else{

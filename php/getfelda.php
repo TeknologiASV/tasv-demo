@@ -1,5 +1,6 @@
 <?php
-require_once "db_connect.php";
+// Old DB logic disabled while this endpoint returns random data.
+// require_once "db_connect.php";
 
 session_start();
 
@@ -7,6 +8,105 @@ if(isset($_POST['startDate'], $_POST['endDate'])){
     $startDate = filter_input(INPUT_POST, 'startDate', FILTER_SANITIZE_STRING);
     $endDate = filter_input(INPUT_POST, 'endDate', FILTER_SANITIZE_STRING);
 
+    $message = array();
+    $totalE1 = 0; $totalE2 = 0; $totalE3 = 0; $totalE4 = 0; $totalE5 = 0;
+    $totalC1 = 0; $totalC2 = 0; $totalC3 = 0; $totalCount = 0;
+    $E1Big = 0; $E1Small = 0; $E2Big = 0; $E2Small = 0; $E3Big = 0; $E3Small = 0;
+    $E5Big = 0; $E5Small = 0; $C1Big = 0; $C1Small = 0; $C2Big = 0; $C2Small = 0; $C3Big = 0; $C3Small = 0;
+
+    $harvester = array();
+    $harvester[] = array('zone' => 'C1', 'Har1' => mt_rand(5,6), 'Har2' => mt_rand(4,5));
+    $harvester[] = array('zone' => 'C2', 'Har1' => mt_rand(15,20), 'Har2' => mt_rand(15,25));
+    $harvester[] = array('zone' => 'C3', 'Har1' => mt_rand(15,25), 'Har2' => mt_rand(10,15));
+    $harvester[] = array('zone' => 'E2', 'Har1' => mt_rand(50,60), 'Har2' => mt_rand(55,65));
+    $harvester[] = array('zone' => 'E3', 'Har1' => mt_rand(55,65), 'Har2' => mt_rand(65,70));
+    $harvester[] = array('zone' => 'E5', 'Har1' => mt_rand(3,6), 'Har2' => mt_rand(1,3));
+
+    $periodStart = DateTime::createFromFormat('Y-m-d', substr($startDate, 0, 10));
+    $periodEnd = DateTime::createFromFormat('Y-m-d', substr($endDate, 0, 10));
+
+    if ($periodStart && $periodEnd) {
+        $periodEnd->modify('+1 day');
+        $period = new DatePeriod($periodStart, new DateInterval('P1D'), $periodEnd);
+
+        foreach ($period as $date) {
+            $dayC1Big = mt_rand(20, 100); $dayC1Small = mt_rand(20, 100);
+            $dayC2Big = mt_rand(40, 180); $dayC2Small = mt_rand(40, 180);
+            $dayC3Big = mt_rand(40, 180); $dayC3Small = mt_rand(30, 150);
+            $dayE1Big = mt_rand(10, 80); $dayE1Small = mt_rand(10, 80);
+            $dayE2Big = mt_rand(100, 350); $dayE2Small = mt_rand(100, 350);
+            $dayE3Big = mt_rand(120, 400); $dayE3Small = mt_rand(120, 400);
+            $dayE4Count = mt_rand(20, 120);
+            $dayE5Big = mt_rand(20, 100); $dayE5Small = mt_rand(10, 80);
+
+            $dayC1 = $dayC1Big + $dayC1Small;
+            $dayC2 = $dayC2Big + $dayC2Small;
+            $dayC3 = $dayC3Big + $dayC3Small;
+            $dayE1 = $dayE1Big + $dayE1Small;
+            $dayE2 = $dayE2Big + $dayE2Small;
+            $dayE3 = $dayE3Big + $dayE3Small;
+            $dayE5 = $dayE5Big + $dayE5Small;
+
+            $message[] = array(
+                'Date' => $date->format('Y-m-d'),
+                'E1Count' => $dayE1,
+                'E2Count' => $dayE2,
+                'E3Count' => $dayE3,
+                'E4Count' => $dayE4Count,
+                'E5Count' => $dayE5,
+                'C1Count' => $dayC1,
+                'C2Count' => $dayC2,
+                'C3Count' => $dayC3,
+                'C1Ph' => mt_rand(5, 6),
+                'C2Ph' => mt_rand(8, 9),
+                'C3Ph' => mt_rand(7, 8),
+                'C1Humidity' => mt_rand(10, 100),
+                'C2Humidity' => mt_rand(10, 100),
+                'C3Humidity' => mt_rand(10, 100),
+                'E5Big' => $dayE5Big,
+                'E5Small' => $dayE5Small
+            );
+
+            $totalE1 += $dayE1; $totalE2 += $dayE2; $totalE3 += $dayE3; $totalE4 += $dayE4Count; $totalE5 += $dayE5;
+            $totalC1 += $dayC1; $totalC2 += $dayC2; $totalC3 += $dayC3;
+            $totalCount += $dayE1 + $dayE2 + $dayE3 + $dayE4Count + $dayE5 + $dayC1 + $dayC2 + $dayC3;
+            $E1Big += $dayE1Big; $E1Small += $dayE1Small; $E2Big += $dayE2Big; $E2Small += $dayE2Small;
+            $E3Big += $dayE3Big; $E3Small += $dayE3Small; $E5Big += $dayE5Big; $E5Small += $dayE5Small;
+            $C1Big += $dayC1Big; $C1Small += $dayC1Small; $C2Big += $dayC2Big; $C2Small += $dayC2Small; $C3Big += $dayC3Big; $C3Small += $dayC3Small;
+        }
+    }
+
+    echo json_encode(
+        array(
+            "status" => "success",
+            "message" => $message,
+            "harvester" => $harvester,
+            "totalE1" => $totalE1,
+            "totalE2" => $totalE2,
+            "totalE3" => $totalE3,
+            "totalE4" => $totalE4,
+            "totalE5" => $totalE5,
+            "totalC1" => $totalC1,
+            "totalC2" => $totalC2,
+            "totalC3" => $totalC3,
+            "totalCount" => $totalCount,
+            "E1Big" => $E1Big,
+            "E1Small" => $E1Small,
+            "E2Big" => $E2Big,
+            "E2Small" => $E2Small,
+            "E3Big" => $E3Big,
+            "E3Small" => $E3Small,
+            "E5Big" => $E5Big,
+            "E5Small" => $E5Small,
+            "C1Big" => $C1Big,
+            "C1Small" => $C1Small,
+            "C2Big" => $C2Big,
+            "C2Small" => $C2Small,
+            "C3Big" => $C3Big,
+            "C3Small" => $C3Small
+        ));
+
+    /*
     if ($select_stmt = $dbF->prepare("SELECT * FROM felda_table2 WHERE Rec_time>=? AND Rec_time<=? ORDER BY Rec_time")) {
         $select_stmt->bind_param('ss', $startDate, $endDate);
         
@@ -337,6 +437,7 @@ if(isset($_POST['startDate'], $_POST['endDate'])){
             )
         ); 
     }
+    */
 }
 else{
     echo json_encode(

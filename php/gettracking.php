@@ -1,5 +1,6 @@
 <?php
-require_once "db_connect.php";
+// Old DB logic disabled while this endpoint returns random data.
+// require_once "db_connect.php";
 
 session_start();
 
@@ -8,6 +9,48 @@ if(isset($_POST['startDate'], $_POST['endDate'], $_POST['harvesterId'])){
     $endDate = filter_input(INPUT_POST, 'endDate', FILTER_SANITIZE_STRING);
     $harvesterId = filter_input(INPUT_POST, 'harvesterId', FILTER_SANITIZE_STRING);
 
+    $message = array();
+    $nodes = array('c1', 'c2', 'c3', 'e1', 'e2', 'e3', 'e4', 'e5');
+    $periodStart = DateTime::createFromFormat('Y-m-d', substr($startDate, 0, 10));
+    $periodEnd = DateTime::createFromFormat('Y-m-d', substr($endDate, 0, 10));
+
+    if ($periodStart && $periodEnd) {
+        $periodEnd->modify('+1 day');
+        $period = new DatePeriod($periodStart, new DateInterval('P1D'), $periodEnd);
+
+        foreach ($period as $date) {
+            $path = array();
+            $distance = mt_rand(800, 1500);
+            $lastNode = '';
+
+            for ($hour = 6; $hour <= 18; $hour += mt_rand(1, 2)) {
+                do {
+                    $node = $nodes[array_rand($nodes)];
+                } while ($node == $lastNode);
+
+                $distance -= mt_rand(20, 120);
+                $path[] = array(
+                    'Date' => sprintf('%02d:%02d:%02d', $hour, mt_rand(0, 59), mt_rand(0, 59)),
+                    'Location' => $node,
+                    'Distance' => max($distance, 0)
+                );
+                $lastNode = $node;
+            }
+
+            $message[] = array(
+                'Date' => $date->format('Y-m-d'),
+                'Path' => $path
+            );
+        }
+    }
+
+    echo json_encode(
+        array(
+            "status" => "success",
+            "message" => $message
+        ));
+
+    /*
     if ($select_stmt = $dbF->prepare("SELECT * FROM felda_table1 WHERE Rec_time>=? AND Rec_time<=? AND ID=? ORDER BY Rec_time")) {
         $select_stmt->bind_param('sss', $startDate, $endDate, $harvesterId);
         
@@ -81,6 +124,7 @@ if(isset($_POST['startDate'], $_POST['endDate'], $_POST['harvesterId'])){
                 ));   
         }
     }
+    */
 }
 else{
     echo json_encode(

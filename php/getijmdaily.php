@@ -1,5 +1,6 @@
 <?php
-require_once "db_connect.php";
+// Old DB logic disabled while this endpoint returns random data.
+// require_once "db_connect.php";
 
 session_start();
 
@@ -7,6 +8,44 @@ if(isset($_POST['startDate'], $_POST['endDate'])){
     $startDate = filter_input(INPUT_POST, 'startDate', FILTER_SANITIZE_STRING);
     $endDate = filter_input(INPUT_POST, 'endDate', FILTER_SANITIZE_STRING);
 
+    $message = array();
+    $type1 = 0;
+    $type2 = 0;
+    $type3 = 0;
+    $type4 = 0;
+
+    for ($hour = 0; $hour < 24; $hour++) {
+        $hourType1 = mt_rand(5, 50);
+        $hourType2 = mt_rand(4, 40);
+        $hourType3 = mt_rand(2, 25);
+        $hourType4 = mt_rand(1, 15);
+
+        $message[] = array(
+            'Date' => sprintf('%02d:00', $hour),
+            'type1' => $hourType1,
+            'type2' => $hourType2,
+            'type3' => $hourType3,
+            'type4' => $hourType4,
+            'total' => $hourType1 + $hourType2 + $hourType3 + $hourType4
+        );
+
+        $type1 += $hourType1;
+        $type2 += $hourType2;
+        $type3 += $hourType3;
+        $type4 += $hourType4;
+    }
+
+    echo json_encode(
+        array(
+            "status" => "success",
+            "message" => $message,
+            "type1" => $type1,
+            "type2" => $type2,
+            "type3" => $type3,
+            "type4" => $type4
+        ));
+
+    /*
     if ($select_stmt = $dbI->prepare("SELECT * FROM vehicle_count WHERE Date>=? AND Date<=? ORDER BY Date")) {
         $select_stmt->bind_param('ss', $startDate, $endDate);
         
@@ -83,6 +122,7 @@ if(isset($_POST['startDate'], $_POST['endDate'])){
             )
         ); 
     }
+    */
 }
 else{
     echo json_encode(
