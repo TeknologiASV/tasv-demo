@@ -10,7 +10,7 @@ if(isset($_POST['startDate'], $_POST['endDate'], $_POST['harvesterId'])){
     $harvesterId = filter_input(INPUT_POST, 'harvesterId', FILTER_SANITIZE_STRING);
 
     $message = array();
-    $nodes = array('c1', 'c2', 'c3', 'e1', 'e2', 'e3', 'e4', 'e5');
+    $nodes = array('c1', 'c2', 'c3', 'e1', 'e2', 'e3', 'e5');
     $periodStart = DateTime::createFromFormat('Y-m-d', substr($startDate, 0, 10));
     $periodEnd = DateTime::createFromFormat('Y-m-d', substr($endDate, 0, 10));
 

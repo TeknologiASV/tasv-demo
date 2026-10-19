@@ -278,7 +278,7 @@ else{
 <script src="plugins/datatables-buttons/js/buttons.print.min.js"></script>
 <script src="plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 <script src="plugins/jquery-validation/jquery.validate.min.js"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAjjbv6izl-JmncmbItl_S2_6OetztzjF8"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAjjbv6izl-JmncmbItl_S2_6OetztzjF8&libraries=geometry"></script>
 <script>
 var ouStartDate = "";
 var ouEndDate = "";
@@ -495,6 +495,18 @@ function addStackChartDataI(chart, label, data, data2, data3, data4) {
   chart.data.datasets[1].data.push(data2);
   chart.data.datasets[2].data.push(data3);
   chart.data.datasets[3].data.push(data4);
+  chart.update();
+}
+
+function addLineChartData(chart, label) {
+  chart.data.labels.push(label);
+
+  for (var i = 2; i < arguments.length; i++) {
+    if (chart.data.datasets[i - 2]) {
+      chart.data.datasets[i - 2].data.push(arguments[i]);
+    }
+  }
+
   chart.update();
 }
 
