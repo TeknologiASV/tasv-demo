@@ -179,17 +179,25 @@ else{
             </ul>
           </li>
           <li class="nav-item">
-            <a href="#fallDetection" data-file="fall.html" class="nav-link link" style="color: black;">
-              <i class="nav-icon fas fa-shoe-prints"></i>
-              <p>Fall Detection</p>
+            <a href="#" class="nav-link" style="color: black;">
+              <i class="nav-icon fas fa-map"></i>
+              <p>Fall Detection<i class="fas fa-angle-left right"></i></p>
             </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="#fallDetection" data-file="fall.html" class="nav-link link" style="color: black;">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Dashboard</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#fallDemoVideo" data-file="fallVideo.html" class="nav-link link" style="color: black;">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Demo Video</p>
+                </a>
+              </li>
+            </ul>
           </li>
-          <!--li class="nav-item">
-            <a href="#vehiclecounting" data-file="vehiclecounting.html" class="nav-link link" style="color: black;">
-              <i class="nav-icon fas fa-car"></i>
-              <p>Vehicle Counting</p>
-            </a>
-          </li-->
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link" style="color: black;">
               <i class="nav-icon fas fa-cogs"></i>
