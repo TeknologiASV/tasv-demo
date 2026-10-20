@@ -180,7 +180,7 @@ else{
           </li>
           <li class="nav-item">
             <a href="#" class="nav-link" style="color: black;">
-              <i class="nav-icon fas fa-map"></i>
+              <i class="nav-icon fas fa-shoe-prints"></i>
               <p>Fall Detection<i class="fas fa-angle-left right"></i></p>
             </a>
             <ul class="nav nav-treeview">
